@@ -10,54 +10,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <!-- Canvas Confetti para la celebración -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-<script>
-
-// ===============================
-// AUTOABRIR PULL REQUEST
-// ===============================
-
-window.onload = () => {
-
-  // Espera breve para mostrar primero el IDE
-  setTimeout(() => {
-
-    const modal = document.getElementById('propuesta-modal');
-
-    // Verifica que exista
-    if (!modal) return;
-
-    // Mostrar modal
-    modal.classList.remove('hidden');
-
-    // Forzar render
-    void modal.offsetWidth;
-
-    // Activar animaciones
-    modal.classList.remove('opacity-0');
-    modal.classList.remove('pointer-events-none');
-
-    // Ventana interna
-    const ventana = modal.firstElementChild;
-
-    if (ventana) {
-      ventana.classList.remove('scale-95');
-      ventana.classList.add('scale-100');
-    }
-
-    // Logs terminal falsos
-    if (typeof logTerminal === 'function') {
-
-      logTerminal("[compiler] Ejecutando npm run date...");
-      logTerminal("[compiler] Inicializando sentimientos...");
-      logTerminal("[compiler] Pull Request abierto correctamente 💖");
-
-    }
-
-  }, 1800);
-
-};
-
-</script>
 
   <style>
     body {
@@ -301,3 +253,4 @@ window.onload = () => {
         <div class="bg-[#181825] p-4 rounded-lg border border-[#313244] space-y-2 text-sm">
           <h3 class="font-semibold text-white">Descripción de los Cambios:</h3>
           <p class="text-[#cdd6f4]">
+            Esta rama propone fusionar mi tiempo libre con el tuyo para desplegar una hermosa cita. Se garantizan cero errores de sintaxis y charlas divertidas.
