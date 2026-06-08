@@ -43,7 +43,7 @@
 <body class="bg-[#1e1e2e] text-[#cdd6f4] min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-[#f5c2e7] selection:text-[#11111b]">
 
   <!-- Cabecera estilo Editor de Código -->
-  <header class="bg-[#11111b] border-b border-[#313244] px-4 py-3 flex items-center justify-between select-none shrink-0">
+  <header class="bg-[#11111b] border-b border-[#313244] px-4 py-3 flex items-center justify-between select-none shrink-0 relative z-30">
     <!-- Controles de ventana falsos -->
     <div class="flex items-center space-x-2">
       <div class="w-3 h-3 rounded-full bg-[#f38ba8]"></div>
@@ -69,7 +69,7 @@
   </header>
 
   <!-- Cuerpo del IDE -->
-  <main class="flex-1 flex flex-col md:flex-row overflow-hidden">
+  <main class="flex-1 flex flex-col md:flex-row overflow-hidden relative z-10">
     <!-- Barra Lateral (Explorador de Archivos) -->
     <aside class="w-full md:w-64 bg-[#181825] border-r border-[#313244] p-4 flex flex-col justify-between shrink-0 select-none">
       <div>
@@ -178,7 +178,7 @@
 
         <!-- Pestaña 3: estilos.css -->
         <div id="content-estilos" class="space-y-1 hidden">
-          <p class="text-[#6c7086]/* Reglas de estilo para nuestra posible química */</p>
+          <p class="text-[#6c7086]">// Reglas de estilo para nuestra posible química</p>
           <p><span class="text-[#f9e2af]">.nosotros</span> {</p>
           <p class="pl-4"><span class="text-[#89b4fa]">display</span>: <span class="text-[#a6e3a1]">flex</span>;</p>
           <p class="pl-4"><span class="text-[#89b4fa]">align-items</span>: <span class="text-[#a6e3a1]">center</span>;</p>
@@ -194,7 +194,7 @@
           <br>
           <p><span class="text-[#f9e2af]">.mi-timidez</span> {</p>
           <p class="pl-4"><span class="text-[#89b4fa]">visibility</span>: <span class="text-[#a6e3a1]">hidden</span>; <span class="text-[#6c7086]/* Se desactiva cuando te veo sonreír */</span></p>
-          <p>}</p>
+          </p>
         </div>
 
       </div>
@@ -202,7 +202,7 @@
   </main>
 
   <!-- Panel de la Consola / Terminal en la parte inferior -->
-  <footer class="h-40 bg-[#11111b] border-t border-[#313244] flex flex-col shrink-0">
+  <footer class="h-40 bg-[#11111b] border-t border-[#313244] flex flex-col shrink-0 relative z-20">
     <div class="bg-[#181825] px-4 py-2 border-b border-[#313244] flex items-center justify-between text-xs font-semibold select-none">
       <div class="flex space-x-4">
         <span class="text-white border-b-2 border-pink-500 pb-1 cursor-pointer">TERMINAL</span>
@@ -220,7 +220,7 @@
   </footer>
 
   <!-- MODAL / INTERFAZ DE PROPUESTA (GITHHUB PULL REQUEST) -->
-  <div id="propuesta-modal" class="fixed inset-0 bg-[#11111b]/80 backdrop-blur-md flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none transition-all duration-300">
+  <div id="propuesta-modal" class="fixed inset-0 bg-[#11111b]/80 backdrop-blur-md flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none transition-all duration-300 hidden">
     <div class="bg-[#1e1e2e] border-2 border-[#f5c2e7] w-full max-w-2xl rounded-xl shadow-2xl overflow-hidden flex flex-col transition-transform duration-300 scale-95">
       
       <!-- Barra superior de la ventana del Modal -->
@@ -408,11 +408,16 @@
         logTerminal("[compiler] ¡Éxito! Propuesta compilada correctamente.");
         logTerminal("[compiler] Abriendo propuesta de Pull Request...");
         
-        // Mostrar Modal con animación eliminando el bloqueo de clics
+        // Primero aseguramos quitar la clase hidden para que exista en el árbol de renderizado
         const modal = document.getElementById('propuesta-modal');
-        modal.classList.remove('pointer-events-none', 'opacity-0');
-        modal.firstElementChild.classList.remove('scale-95');
-        modal.firstElementChild.classList.add('scale-100');
+        modal.classList.remove('hidden');
+        
+        // Retrasamos levemente para permitir la transición CSS suave de opacidad
+        setTimeout(() => {
+          modal.classList.remove('pointer-events-none', 'opacity-0');
+          modal.firstElementChild.classList.remove('scale-95');
+          modal.firstElementChild.classList.add('scale-100');
+        }, 30);
       }, 800);
     }
 
@@ -422,6 +427,12 @@
       modal.classList.add('pointer-events-none', 'opacity-0');
       modal.firstElementChild.classList.add('scale-95');
       modal.firstElementChild.classList.remove('scale-100');
+      
+      // Ocultar físicamente el modal después de que termine la animación
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 300);
+      
       logTerminal("[compiler] Pull Request cerrado temporalmente por el usuario.", true);
     }
 
