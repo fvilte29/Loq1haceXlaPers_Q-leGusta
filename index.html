@@ -1,197 +1,549 @@
-<!-- Editor de Código Principal -->
-<section class="flex-1 flex flex-col bg-[#1e1e2e] overflow-hidden min-h-[400px]">
-  <!-- Pestañas activas arriba -->
-  <div class="bg-[#181825] border-b border-[#313244] flex items-center text-xs code-font select-none overflow-x-auto">
-    <div id="tab-header-propuesta" class="px-4 py-2 border-r border-[#313244] bg-[#1e1e2e] text-[#f5c2e7] flex items-center space-x-2 shrink-0 border-t-2 border-t-pink-500">
-      <span>JS propuesta.js</span>
-    </div>
-    <div id="tab-header-razones" class="px-4 py-2 border-r border-[#313244] text-[#a6adc8] flex items-center space-x-2 shrink-0">
-      <span>{ } razones.json</span>
-    </div>
-    <div id="tab-header-estilos" class="px-4 py-2 border-r border-[#313244] text-[#a6adc8] flex items-center space-x-2 shrink-0">
-      <span># estilos.css</span>
-    </div>
-  </div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>git commit -m "propuesta_especial"</title>
+  <!-- Tailwind CSS para diseño moderno -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Fira Code & Inter Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Canvas Confetti para la celebración -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-  <!-- Área de Texto del Código -->
-  <div class="flex-1 p-4 md:p-6 overflow-y-auto code-font text-xs md:text-sm leading-relaxed relative">
-    
-    <!-- Pestaña 1: propuesta.js -->
-    <div id="content-propuesta" class="space-y-1 block">
-      <p class="text-[#6c7086]">// Propuesta romántica interactiva v1.0.0</p>
-      <p><span class="text-[#cba6f7]">import</span> { <span class="text-[#f5e0dc]">amor</span>, <span class="text-[#f5e0dc]">nervios</span> } <span class="text-[#cba6f7]">from</span> <span class="text-[#a6e3a1]">'mi-corazón'</span>;</p>
-      <p><span class="text-[#cba6f7]">const</span> <span class="text-[#f38ba8]">invitadaEstrella</span> = <span class="text-[#a6e3a1]">"Tú, la programadora más genial"</span>;</p>
-      <br>
-      <p><span class="text-[#cba6f7]">function</span> <span class="text-[#89b4fa]">proponerCita</span>() {</p>
-      <p class="pl-4"><span class="text-[#cba6f7]">const</span> <span class="text-[#f5e0dc]">plan</span> = {</p>
-      <p class="pl-8"><span class="text-[#94e2d5]">actividad</span>: <span class="text-[#a6e3a1]">"Café, risas, y debatir si usar pestañas o espacios"</span>,</p>
-      <p class="pl-8"><span class="text-[#94e2d5]">compañia</span>: <span class="text-[#a6e3a1]">"Yo (prometo ser divertido y no causar merge conflicts)"</span>,</p>
-      <p class="pl-8"><span class="text-[#94e2d5]">fecha</span>: <span class="text-[#a6e3a1]">"Cuando tu agenda (y tu compilador) estén libres"</span></p>
-      <p class="pl-4">};</p>
-      <br>
-      <p class="pl-4"><span class="text-[#cba6f7]">if</span> (<span class="text-[#f9e2af]">quieresSalirConmigo</span>) {</p>
-      <p class="pl-8 text-[#a6e3a1]"><span class="text-[#cba6f7]">return</span> <span class="text-[#f5e0dc]">celebrar</span>(plan);</p>
-      <p class="pl-4">} <span class="text-[#cba6f7]">else</span> {</p>
-      <p class="pl-8 text-[#f38ba8]"><span class="text-[#cba6f7]">throw new</span> <span class="text-[#f9e2af]">Error</span>(<span class="text-[#a6e3a1]">"Código de rechazo no soportado. Intenta de nuevo :p"</span>);</p>
-      <p class="pl-4">}</p>
-      <p>}</p>
-      <br>
-      <p class="text-[#6c7086]">// ¡Es hora de ejecutar este script!</p>
-      <p><span class="text-[#f5c2e7]">console</span>.<span class="text-[#89b4fa]">log</span>(<span class="text-[#89b4fa]">proponerCita</span>());</p>
-      <br>
-      <div class="mt-8 bg-[#11111b] p-4 rounded-lg border border-pink-500/20 max-w-lg">
-        <p class="text-pink-400 font-bold mb-1">💡 Tip para la desarrolladora:</p>
-        <p class="text-xs text-[#a6adc8]">Haz clic en el botón superior derecho <strong class="text-pink-400">"npm run date"</strong> para ejecutar el compilador de sentimientos.</p>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .code-font {
+      font-family: 'Fira Code', monospace;
+    }
+    /* Estilo de scroll personalizado */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1e1e2e;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #44475a;
+      border-radius: 3px;
+    }
+    /* Animación de pulso para el botón de compilación */
+    @keyframes pulse-glow {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.7); }
+      50% { transform: scale(1.05); box-shadow: 0 0 15px 5px rgba(236, 72, 153, 0.4); }
+    }
+    .btn-glow {
+      animation: pulse-glow 2s infinite;
+    }
+  </style>
+</head>
+<body class="bg-[#1e1e2e] text-[#cdd6f4] min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-[#f5c2e7] selection:text-[#11111b]">
+
+  <!-- Cabecera estilo Editor de Código -->
+  <header class="bg-[#11111b] border-b border-[#313244] px-4 py-3 flex items-center justify-between select-none shrink-0">
+    <!-- Controles de ventana falsos -->
+    <div class="flex items-center space-x-2">
+      <div class="w-3 h-3 rounded-full bg-[#f38ba8]"></div>
+      <div class="w-3 h-3 rounded-full bg-[#f9e2af]"></div>
+      <div class="w-3 h-3 rounded-full bg-[#a6e3a1]"></div>
+      <span class="text-xs text-[#a6adc8] ml-4 font-semibold code-font">VSLove - propuesta.js</span>
+    </div>
+    <!-- Estado de Git -->
+    <div class="hidden md:flex items-center space-x-2 text-xs text-[#a6adc8] code-font">
+      <svg class="w-4 h-4 text-[#f5c2e7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7a3 3 0 100-6 3 3 0 000 6zM8 7V7m0 0v1a3 3 0 003 3h4m0 0a3 3 0 100 6 3 3 0 000-6h-4"></path></svg>
+      <span>branch: <span class="text-[#f5c2e7] font-bold">origin/cita-contigo</span></span>
+      <span class="text-[#a6adc8] ml-2">● 1 commit pendiente</span>
+    </div>
+    <!-- Botón de Ejecutar Código (Corazón) -->
+    <div>
+      <button onclick="ejecutarPropuesta()" class="btn-glow flex items-center space-x-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white text-xs md:text-sm font-bold px-4 py-2 rounded-lg transition-all duration-150">
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+        <span class="code-font">npm run date</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Cuerpo del IDE -->
+  <main class="flex-1 flex flex-col md:flex-row overflow-hidden">
+    <!-- Barra Lateral (Explorador de Archivos) -->
+    <aside class="w-full md:w-64 bg-[#181825] border-r border-[#313244] p-4 flex flex-col justify-between shrink-0 select-none">
+      <div>
+        <div class="text-xs font-bold text-[#585b70] uppercase tracking-wider mb-3 code-font">Explorador de Archivos</div>
+        <div class="space-y-1">
+          <!-- Archivo 1: propuesta.js (Activo por defecto) -->
+          <button id="tab-btn-propuesta" onclick="switchTab('propuesta')" class="w-full flex items-center justify-between px-3 py-2 rounded text-sm transition-colors text-white bg-[#313244] hover:bg-[#313244] group">
+            <span class="flex items-center space-x-2 code-font">
+              <span class="text-[#f9e2af]">JS</span>
+              <span>propuesta.js</span>
+            </span>
+            <span class="w-2 h-2 rounded-full bg-pink-500"></span>
+          </button>
+          <!-- Archivo 2: razones.json -->
+          <button id="tab-btn-razones" onclick="switchTab('razones')" class="w-full flex items-center justify-between px-3 py-2 rounded text-sm transition-colors text-[#a6adc8] hover:bg-[#313244]/50 group">
+            <span class="flex items-center space-x-2 code-font">
+              <span class="text-[#a6e3a1]">{ }</span>
+              <span>razones.json</span>
+            </span>
+          </button>
+          <!-- Archivo 3: estilos.css -->
+          <button id="tab-btn-estilos" onclick="switchTab('estilos')" class="w-full flex items-center justify-between px-3 py-2 rounded text-sm transition-colors text-[#a6adc8] hover:bg-[#313244]/50 group">
+            <span class="flex items-center space-x-2 code-font">
+              <span class="text-[#89b4fa]">#</span>
+              <span>estilos.css</span>
+            </span>
+          </button>
+        </div>
+      </div>
+      <!-- Panel de Información inferior -->
+      <div class="hidden md:block p-3 rounded bg-[#11111b] border border-[#313244]">
+        <h4 class="text-xs font-bold text-[#f5c2e7] mb-1 code-font">Sistema de Diagnóstico</h4>
+        <p class="text-[11px] text-[#a6adc8]">Presión arterial elevada detectada al redactar esta propuesta.</p>
+      </div>
+    </aside>
+
+    <!-- Editor de Código Principal -->
+    <section class="flex-1 flex flex-col bg-[#1e1e2e] overflow-hidden min-h-[400px]">
+      <!-- Pestañas activas arriba -->
+      <div class="bg-[#181825] border-b border-[#313244] flex items-center text-xs code-font select-none overflow-x-auto">
+        <div id="tab-header-propuesta" class="px-4 py-2 border-r border-[#313244] bg-[#1e1e2e] text-[#f5c2e7] flex items-center space-x-2 shrink-0 border-t-2 border-t-pink-500">
+          <span>JS propuesta.js</span>
+        </div>
+        <div id="tab-header-razones" class="px-4 py-2 border-r border-[#313244] text-[#a6adc8] flex items-center space-x-2 shrink-0">
+          <span>{ } razones.json</span>
+        </div>
+        <div id="tab-header-estilos" class="px-4 py-2 border-r border-[#313244] text-[#a6adc8] flex items-center space-x-2 shrink-0">
+          <span># estilos.css</span>
+        </div>
+      </div>
+
+      <!-- Área de Texto del Código -->
+      <div class="flex-1 p-4 md:p-6 overflow-y-auto code-font text-xs md:text-sm leading-relaxed relative">
+        
+        <!-- Pestaña 1: propuesta.js -->
+        <div id="content-propuesta" class="space-y-1 block">
+          <p class="text-[#6c7086]">// Propuesta romántica interactiva v1.0.0</p>
+          <p><span class="text-[#cba6f7]">import</span> { <span class="text-[#f5e0dc]">amor</span>, <span class="text-[#f5e0dc]">nervios</span> } <span class="text-[#cba6f7]">from</span> <span class="text-[#a6e3a1]">'mi-corazón'</span>;</p>
+          <p><span class="text-[#cba6f7]">const</span> <span class="text-[#f38ba8]">invitadaEstrella</span> = <span class="text-[#a6e3a1]">"Tú, la programadora más genial"</span>;</p>
+          <br>
+          <p><span class="text-[#cba6f7]">function</span> <span class="text-[#89b4fa]">proponerCita</span>() {</p>
+          <p class="pl-4"><span class="text-[#cba6f7]">const</span> <span class="text-[#f5e0dc]">plan</span> = {</p>
+          <p class="pl-8"><span class="text-[#94e2d5]">actividad</span>: <span class="text-[#a6e3a1]">"Café, risas, y debatir si usar pestañas o espacios"</span>,</p>
+          <p class="pl-8"><span class="text-[#94e2d5]">compañia</span>: <span class="text-[#a6e3a1]">"Yo (prometo ser divertido y no causar merge conflicts)"</span>,</p>
+          <p class="pl-8"><span class="text-[#94e2d5]">fecha</span>: <span class="text-[#a6e3a1]">"Cuando tu agenda (y tu compilador) estén libres"</span></p>
+          <p class="pl-4">};</p>
+          <br>
+          <p class="pl-4"><span class="text-[#cba6f7]">if</span> (<span class="text-[#f9e2af]">quieresSalirConmigo</span>) {</p>
+          <p class="pl-8 text-[#a6e3a1]"><span class="text-[#cba6f7]">return</span> <span class="text-[#f5e0dc]">celebrar</span>(plan);</p>
+          <p class="pl-4">} <span class="text-[#cba6f7]">else</span> {</p>
+          <p class="pl-8 text-[#f38ba8]"><span class="text-[#cba6f7]">throw new</span> <span class="text-[#f9e2af]">Error</span>(<span class="text-[#a6e3a1]">"Código de rechazo no soportado. Intenta de nuevo :p"</span>);</p>
+          <p class="pl-4">}</p>
+          <p>}</p>
+          <br>
+          <p class="text-[#6c7086]">// ¡Es hora de ejecutar este script!</p>
+          <p><span class="text-[#f5c2e7]">console</span>.<span class="text-[#89b4fa]">log</span>(<span class="text-[#89b4fa]">proponerCita</span>());</p>
+          <br>
+          <div class="mt-8 bg-[#11111b] p-4 rounded-lg border border-pink-500/20 max-w-lg">
+            <p class="text-pink-400 font-bold mb-1">💡 Tip para la desarrolladora:</p>
+            <p class="text-xs text-[#a6adc8]">Haz clic en el botón superior derecho <strong class="text-pink-400">"npm run date"</strong> para ejecutar el compilador de sentimientos.</p>
+          </div>
+        </div>
+
+        <!-- Pestaña 2: razones.json -->
+        <div id="content-razones" class="space-y-1 hidden">
+          <p class="text-[#6c7086]">// Variables de por qué me pareces fascinante</p>
+          <p class="text-[#89b4fa]">{</p>
+          <p class="pl-4"><span class="text-[#f38ba8]">"nombre"</span>: <span class="text-[#a6e3a1]">"Tú"</span>,</p>
+          <p class="pl-4"><span class="text-[#f38ba8]">"habilidades_unicas"</span>: <span class="text-[#89dceb]">[</span></p>
+          <p class="pl-8"><span class="text-[#a6e3a1]">"Capacidad de crear mundos con código"</span>,</p>
+          <p class="pl-8"><span class="text-[#a6e3a1]">"Una sonrisa que hace que mi sistema se reinicie"</span>,</p>
+          <p class="pl-8"><span class="text-[#a6e3a1]">"Esa inteligencia que me inspira tanto"</span></p>
+          <p class="pl-4"><span class="text-[#89dceb]">]</span>,</p>
+          <p class="pl-4"><span class="text-[#f38ba8]">"efectos_secundarios_en_mi"</span>: <span class="text-[#89dceb]">{</span></p>
+          <p class="pl-8"><span class="text-[#f38ba8]">"ritmo_cardiaco"</span>: <span class="text-[#f9e2af]">"150bpm"</span>,</p>
+          <p class="pl-8"><span class="text-[#f38ba8]">"nerviosismo"</span>: <span class="text-[#cba6f7]">true</span>,</p>
+          <p class="pl-8"><span class="text-[#f38ba8]">"deseo_de_verte"</span>: <span class="text-[#f9e2af]">99999</span></p>
+          <p class="pl-4"><span class="text-[#89dceb]">}</span>,</p>
+          <p class="pl-4"><span class="text-[#f38ba8]">"promesas"</span>: <span class="text-[#89dceb]">[</span></p>
+          <p class="pl-8"><span class="text-[#a6e3a1]">"No te haré explicaciones innecesarias (no mansplaining de código)"</span>,</p>
+          <p class="pl-8"><span class="text-[#a6e3a1]">"Traeré los mejores chistes locales de desarrollo"</span>,</p>
+          <p class="pl-8"><span class="text-[#a6e3a1]">"Pagaremos la cuenta de forma asíncrona o mutua, como prefieras"</span></p>
+          <p class="pl-4"><span class="text-[#89dceb]">]</span></p>
+          <p class="text-[#89b4fa]">}</p>
+        </div>
+
+        <!-- Pestaña 3: estilos.css -->
+        <div id="content-estilos" class="space-y-1 hidden">
+          <p class="text-[#6c7086]/* Reglas de estilo para nuestra posible química */</p>
+          <p><span class="text-[#f9e2af]">.nosotros</span> {</p>
+          <p class="pl-4"><span class="text-[#89b4fa]">display</span>: <span class="text-[#a6e3a1]">flex</span>;</p>
+          <p class="pl-4"><span class="text-[#89b4fa]">align-items</span>: <span class="text-[#a6e3a1]">center</span>;</p>
+          <p class="pl-4"><span class="text-[#89b4fa]">justify-content</span>: <span class="text-[#a6e3a1]">center</span>;</p>
+          <p class="pl-4"><span class="text-[#89b4fa]">gap</span>: <span class="text-[#f9e2af]">0px</span>; <span class="text-[#6c7086]/* Sin distancia entre nosotros */</span></p>
+          <p class="pl-4"><span class="text-[#89b4fa]">transition</span>: <span class="text-[#a6e3a1]">heartbeat 0.3s ease-in-out</span>;</p>
+          <p>}</p>
+          <br>
+          <p><span class="text-[#f9e2af]">.tu-mirada</span> {</p>
+          <p class="pl-4"><span class="text-[#89b4fa]">filter</span>: <span class="text-[#a6e3a1]">brightness(120%) drop-shadow(0 0 10px #f5c2e7)</span>;</p>
+          <p class="pl-4"><span class="text-[#89b4fa]">animation</span>: <span class="text-[#a6e3a1]">cautivar 1s infinite alternate</span>;</p>
+          <p>}</p>
+          <br>
+          <p><span class="text-[#f9e2af]">.mi-timidez</span> {</p>
+          <p class="pl-4"><span class="text-[#89b4fa]">visibility</span>: <span class="text-[#a6e3a1]">hidden</span>; <span class="text-[#6c7086]/* Se desactiva cuando te veo sonreír */</span></p>
+          <p>}</p>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Panel de la Consola / Terminal en la parte inferior -->
+  <footer class="h-40 bg-[#11111b] border-t border-[#313244] flex flex-col shrink-0">
+    <div class="bg-[#181825] px-4 py-2 border-b border-[#313244] flex items-center justify-between text-xs font-semibold select-none">
+      <div class="flex space-x-4">
+        <span class="text-white border-b-2 border-pink-500 pb-1 cursor-pointer">TERMINAL</span>
+        <span class="text-[#a6adc8] hover:text-white cursor-pointer">PROBLEMS</span>
+        <span class="text-[#a6adc8] hover:text-white cursor-pointer">OUTPUT</span>
+      </div>
+      <div class="text-[#a6adc8] text-[10px] code-font">
+        bash (UTF-8)
       </div>
     </div>
-
-    <!-- Pestaña 2: razones.json -->
-    <div id="content-razones" class="space-y-1 hidden">
-      <p class="text-[#6c7086]">// Variables de por qué me pareces fascinante</p>
-      <p class="text-[#89b4fa]">{</p>
-      <p class="pl-4"><span class="text-[#f38ba8]">"nombre"</span>: <span class="text-[#a6e3a1]">"Tú"</span>,</p>
-      <p class="pl-4"><span class="text-[#f38ba8]">"habilidades_unicas"</span>: <span class="text-[#89dceb]">[</span></p>
-      <p class="pl-8"><span class="text-[#a6e3a1]">"Capacidad de crear mundos con código"</span>,</p>
-      <p class="pl-8"><span class="text-[#a6e3a1]">"Una sonrisa que hace que mi sistema se reinicie"</span>,</p>
-      <p class="pl-8"><span class="text-[#a6e3a1]">"Esa inteligencia que me inspira tanto"</span></p>
-      <p class="pl-4"><span class="text-[#89dceb]">]</span>,</p>
-      <p class="pl-4"><span class="text-[#f38ba8]">"efectos_secundarios_en_mi"</span>: <span class="text-[#89dceb]">{</span></p>
-      <p class="pl-8"><span class="text-[#f38ba8]">"ritmo_cardiaco"</span>: <span class="text-[#f9e2af]">"150bpm"</span>,</p>
-      <p class="pl-8"><span class="text-[#f38ba8]">"nerviosismo"</span>: <span class="text-[#cba6f7]">true</span>,</p>
-      <p class="pl-8"><span class="text-[#f38ba8]">"deseo_de_verte"</span>: <span class="text-[#f9e2af]">99999</span></p>
-      <p class="pl-4"><span class="text-[#89dceb]">}</span>,</p>
-      <p class="pl-4"><span class="text-[#f38ba8]">"promesas"</span>: <span class="text-[#89dceb]">[</span></p>
-      <p class="pl-8"><span class="text-[#a6e3a1]">"No te haré explicaciones innecesarias (no mansplaining de código)"</span>,</p>
-      <p class="pl-8"><span class="text-[#a6e3a1]">"Traeré los mejores chistes locales de desarrollo"</span>,</p>
-      <p class="pl-8"><span class="text-[#a6e3a1]">"Pagaremos la cuenta de forma asíncrona o mutua, como prefieras"</span></p>
-      <p class="pl-4"><span class="text-[#89dceb]">]</span></p>
-      <p class="text-[#89b4fa]">}</p>
+    <div id="terminal-logs" class="flex-1 p-4 overflow-y-auto code-font text-xs text-[#a6e3a1] space-y-1">
+      <div>[system] Cargando entorno de desarrollo de sentimientos... Listo.</div>
+      <div>[system] Intenta ejecutar el script con el botón "npm run date" arriba a la derecha.</div>
     </div>
+  </footer>
 
-    <!-- Pestaña 3: estilos.css -->
-    <div id="content-estilos" class="space-y-1 hidden">
-      <p class="text-[#6c7086]/* Reglas de estilo para nuestra posible química */</p>
-      <p><span class="text-[#f9e2af]">.nosotros</span> {</p>
-      <p class="pl-4"><span class="text-[#89b4fa]">display</span>: <span class="text-[#a6e3a1]">flex</span>;</p>
-      <p class="pl-4"><span class="text-[#89b4fa]">align-items</span>: <span class="text-[#a6e3a1]">center</span>;</p>
-      <p class="pl-4"><span class="text-[#89b4fa]">justify-content</span>: <span class="text-[#a6e3a1]">center</span>;</p>
-      <p class="pl-4"><span class="text-[#89b4fa]">gap</span>: <span class="text-[#f9e2af]">0px</span>; <span class="text-[#6c7086]/* Sin distancia entre nosotros */</span></p>
-      <p class="pl-4"><span class="text-[#89b4fa]">transition</span>: <span class="text-[#a6e3a1]">heartbeat 0.3s ease-in-out</span>;</p>
-      <p>}</p>
-      <br>
-      <p><span class="text-[#f9e2af]">.tu-mirada</span> {</p>
-      <p class="pl-4"><span class="text-[#89b4fa]">filter</span>: <span class="text-[#a6e3a1]">brightness(120%) drop-shadow(0 0 10px #f5c2e7)</span>;</p>
-      <p class="pl-4"><span class="text-[#89b4fa]">animation</span>: <span class="text-[#a6e3a1]">cautivar 1s infinite alternate</span>;</p>
-      <p>}</p>
-      <br>
-      <p><span class="text-[#f9e2af]">.mi-timidez</span> {</p>
-      <p class="pl-4"><span class="text-[#89b4fa]">visibility</span>: <span class="text-[#a6e3a1]">hidden</span>; <span class="text-[#6c7086]/* Se desactiva cuando te veo sonreír */</span></p>
-      <p>}</p>
+  <!-- MODAL / INTERFAZ DE PROPUESTA (GITHHUB PULL REQUEST) -->
+  <div id="propuesta-modal" class="fixed inset-0 bg-[#11111b]/80 backdrop-blur-md flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none transition-all duration-300">
+    <div class="bg-[#1e1e2e] border-2 border-[#f5c2e7] w-full max-w-2xl rounded-xl shadow-2xl overflow-hidden flex flex-col transition-transform duration-300 scale-95">
+      
+      <!-- Barra superior de la ventana del Modal -->
+      <div class="bg-[#181825] border-b border-[#313244] px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <svg class="w-5 h-5 text-green-400" viewBox="0 0 16 16" fill="currentColor"><path d="M1.5 3.25a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5a1.5 1.5 0 103 0 1.5 1.5 0 00-3 0zm1.5-1A2.25 2.25 0 1111 3.75V5.25a.75.75 0 00.75.75h1a.75.75 0 01.75.75v3.256a2.251 2.251 0 11-1.5 0V6.75h-1A2.25 2.25 0 0111 4.5V3.75a2.25 2.25 0 011.5-2.25zM12.5 13.5a1.5 1.5 0 103 0 1.5 1.5 0 00-3 0z"></path></svg>
+          <span class="font-semibold text-white code-font text-sm">Pull Request #1: date/with-you</span>
+        </div>
+        <button onclick="cerrarPropuesta()" class="text-[#a6adc8] hover:text-white transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+
+      <!-- Contenido del Pull Request -->
+      <div class="p-6 overflow-y-auto space-y-4 max-h-[80vh]">
+        <!-- Título principal -->
+        <div>
+          <span class="bg-[#2f3f2f] text-[#a6e3a1] px-2 py-1 rounded text-xs font-semibold code-font">Open</span>
+          <h2 class="text-xl font-bold mt-2 text-white">
+            feat: Invitar a salir a una desarrolladora increíble <span class="text-[#a6adc8] font-normal">#1</span>
+          </h2>
+          <p class="text-xs text-[#a6adc8] mt-1">
+            Creado por <span class="text-[#f5c2e7] font-semibold">Tu pretendiente favorito</span> hace unos instantes.
+          </p>
+        </div>
+
+        <hr class="border-[#313244]">
+
+        <!-- Descripción del PR -->
+        <div class="bg-[#181825] p-4 rounded-lg border border-[#313244] space-y-2 text-sm">
+          <h3 class="font-semibold text-white">Descripción de los Cambios:</h3>
+          <p class="text-[#cdd6f4]">
+            Esta rama propone fusionar mi tiempo libre con el tuyo para desplegar una hermosa cita. Se garantizan cero errores de sintaxis y charlas divertidas.
+          </p>
+          <ul class="list-disc list-inside text-xs text-[#a6adc8] space-y-1 pl-2">
+            <li>Refactorización del fin de semana para incluir risas.</li>
+            <li>Implementación de café y aperitivos de alta calidad.</li>
+            <li>Optimización del tiempo a solas contigo.</li>
+          </ul>
+        </div>
+
+        <!-- Alerta de conflictos (Siempre verde) -->
+        <div class="bg-emerald-950/40 border border-emerald-500/30 p-3 rounded-lg flex items-center space-x-3">
+          <svg class="w-5 h-5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+          <p class="text-xs text-emerald-300">
+            <strong>¡No hay conflictos de fusión!</strong> Esta rama es 100% compatible con tu corazón.
+          </p>
+        </div>
+
+        <!-- Acciones del Pull Request (Los Botones) -->
+        <div class="pt-4 flex flex-col sm:flex-row items-center justify-end gap-3 relative min-h-[60px]" id="pr-actions-container">
+          <!-- Botón de Rechazo que corre (Request Changes) -->
+          <button id="btn-request-changes" onmouseover="escaparBoton()" onclick="accionarRechazo()" class="w-full sm:w-auto px-4 py-2.5 rounded-lg border border-[#f38ba8]/30 hover:border-[#f38ba8] text-[#f38ba8] font-semibold text-xs code-font transition-all duration-150 relative z-10">
+            Request Changes (No)
+          </button>
+
+          <!-- Botón de Éxito (Merge) -->
+          <button onclick="aceptarCita()" class="w-full sm:w-auto px-6 py-2.5 bg-[#a6e3a1] hover:bg-[#89b4fa] text-[#11111b] font-bold rounded-lg text-xs md:text-sm flex items-center justify-center space-x-2 shadow-lg hover:shadow-emerald-500/20 transition-all duration-150 z-20">
+            <svg class="w-4 h-4" viewBox="0 0 16 16" fill="currentColor"><path d="M11 2.5a1.5 1.5 0 103 0 1.5 1.5 0 00-3 0zm1.5-1A2.25 2.25 0 1111 3.75V5.25a.75.75 0 00.75.75h1a.75.75 0 01.75.75v3.256a2.251 2.251 0 11-1.5 0V6.75h-1A2.25 2.25 0 0111 4.5V3.75a2.25 2.25 0 011.5-2.25zM12.5 13.5a1.5 1.5 0 103 0 1.5 1.5 0 00-3 0z"></path></svg>
+            <span>Merge Pull Request (¡Sí!)</span>
+          </button>
+        </div>
+
+      </div>
     </div>
-
   </div>
-</section>
-  <!-- Barra superior de la ventana del Modal -->
-  <div class="bg-[#181825] border-b border-[#313244] px-4 py-3 flex items-center justify-between">
-    <div class="flex items-center space-x-2">
-      <svg class="w-5 h-5 text-green-400" viewBox="0 0 16 16" fill="currentColor"><path d="M1.5 3.25a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5a1.5 1.5 0 103 0 1.5 1.5 0 00-3 0zm1.5-1A2.25 2.25 0 1111 3.75V5.25a.75.75 0 00.75.75h1a.75.75 0 01.75.75v3.256a2.251 2.251 0 11-1.5 0V6.75h-1A2.25 2.25 0 0111 4.5V3.75a2.25 2.25 0 011.5-2.25zM12.5 13.5a1.5 1.5 0 103 0 1.5 1.5 0 00-3 0z"></path></svg>
-      <span class="font-semibold text-white code-font text-sm">Pull Request #1: date/with-you</span>
-    </div>
-    <button onclick="cerrarPropuesta()" class="text-[#a6adc8] hover:text-white transition-colors">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-    </button>
-  </div>
 
-  <!-- Contenido del Pull Request -->
-  <div class="p-6 overflow-y-auto space-y-4 max-h-[80vh]">
-    <!-- Título principal -->
-    <div>
-      <span class="bg-[#2f3f2f] text-[#a6e3a1] px-2 py-1 rounded text-xs font-semibold code-font">Open</span>
-      <h2 class="text-xl font-bold mt-2 text-white">
-        feat: Invitar a salir a una desarrolladora increíble <span class="text-[#a6adc8] font-normal">#1</span>
-      </h2>
-      <p class="text-xs text-[#a6adc8] mt-1">
-        Creado por <span class="text-[#f5c2e7] font-semibold">Tú pretendiente favorito</span> hace unos instantes.
+  <!-- PANTALLA DE ÉXITO FINAL -->
+  <div id="exito-pantalla" class="fixed inset-0 bg-[#1e1e2e] flex flex-col items-center justify-center p-6 z-50 hidden opacity-0 transition-opacity duration-500">
+    <div class="text-center max-w-lg space-y-6">
+      
+      <!-- Icono de Check / Celebración -->
+      <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-emerald-500/10 text-emerald-400 mb-2 border border-emerald-500/30 animate-bounce">
+        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+      </div>
+
+      <!-- Mensaje Principal -->
+      <h1 class="text-3xl md:text-4xl font-extrabold text-white code-font">
+        Pull Request <span class="text-[#a6e3a1]">Merged!</span> 🚀💖
+      </h1>
+      
+      <!-- Cuadro de Log con Git info -->
+      <div class="bg-[#11111b] p-4 rounded-lg border border-[#313244] text-left text-xs md:text-sm code-font text-[#a6adc8] space-y-1">
+        <p class="text-emerald-400 font-bold">git log --oneline -1</p>
+        <p class="text-white">f5c2e7b feat: Cita confirmada exitosamente con el amor de mi vida.</p>
+        <p class="pt-2 text-pink-300">Detalles compilados:</p>
+        <p>• Lugar: El café más acogedor de la ciudad ☕</p>
+        <p>• Output: Sonrisas garantizadas e historias compartidas 💫</p>
+      </div>
+
+      <p class="text-[#a6adc8] text-sm">
+        Has desplegado con éxito este proyecto de amor en producción. Notifícalo a la central para coordinar hora y lugar.
       </p>
-    </div>
 
-    <hr class="border-[#313244]">
+      <!-- Botones de Acción final -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+        <!-- Enviar a WhatsApp -->
+        <a id="btn-whatsapp" href="#" target="_blank" class="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-bold rounded-lg text-sm flex items-center justify-center space-x-2 shadow-lg transition-transform hover:scale-105">
+          <span>Enviar Confirmación por WhatsApp 💬</span>
+        </a>
+        
+        <!-- Copiar confirmación -->
+        <button onclick="copiarCodigo()" class="w-full sm:w-auto px-5 py-3 bg-[#313244] hover:bg-[#45475a] text-white font-semibold rounded-lg text-sm flex items-center justify-center space-x-2 transition-colors">
+          <span id="txt-copiar">Copiar Token de Cita 📋</span>
+        </button>
+      </div>
 
-    <!-- Descripción del PR -->
-    <div class="bg-[#181825] p-4 rounded-lg border border-[#313244] space-y-2 text-sm">
-      <h3 class="font-semibold text-white">Descripción de los Cambios:</h3>
-      <p class="text-[#cdd6f4]">
-        Esta rama propone fusionar mi tiempo libre con el tuyo para desplegar una hermosa cita. Se garantizan cero errores de sintaxis y charlas divertidas.
-      </p>
-      <ul class="list-disc list-inside text-xs text-[#a6adc8] space-y-1 pl-2">
-        <li>Refactorización del fin de semana para incluir risas.</li>
-        <li>Implementación de café y aperitivos de alta calidad.</li>
-        <li>Optimización del tiempo a solas contigo.</li>
-      </ul>
-    </div>
-
-    <!-- Alerta de conflictos (Siempre verde) -->
-    <div class="bg-emerald-950/40 border border-emerald-500/30 p-3 rounded-lg flex items-center space-x-3">
-      <svg class="w-5 h-5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-      <p class="text-xs text-emerald-300">
-        <strong>¡No hay conflictos de fusión!</strong> Esta rama es 100% compatible con tu corazón.
-      </p>
-    </div>
-
-    <!-- Acciones del Pull Request (Los Botones) -->
-    <div class="pt-4 flex flex-col sm:flex-row items-center justify-end gap-3 relative min-h-[60px]" id="pr-actions-container">
-      <!-- Botón de Rechazo que corre (Request Changes) -->
-      <button id="btn-request-changes" onmouseover="escaparBoton()" onclick="accionarRechazo()" class="w-full sm:w-auto px-4 py-2.5 rounded-lg border border-[#f38ba8]/30 hover:border-[#f38ba8] text-[#f38ba8] font-semibold text-xs code-font transition-all duration-150 relative z-10">
-        Request Changes (No)
+      <button onclick="reiniciarIDE()" class="text-xs text-[#585b70] hover:text-[#a6adc8] underline pt-8 block mx-auto code-font">
+        Volver a ver el código
       </button>
 
-      <!-- Botón de Éxito (Merge) -->
-      <button onclick="aceptarCita()" class="w-full sm:w-auto px-6 py-2.5 bg-[#a6e3a1] hover:bg-[#89b4fa] text-[#11111b] font-bold rounded-lg text-xs md:text-sm flex items-center justify-center space-x-2 shadow-lg hover:shadow-emerald-500/20 transition-all duration-150 z-20">
-        <svg class="w-4 h-4" viewBox="0 0 16 16" fill="currentColor"><path d="M11 2.5a1.5 1.5 0 103 0 1.5 1.5 0 00-3 0zm1.5-1A2.25 2.25 0 1111 3.75V5.25a.75.75 0 00.75.75h1a.75.75 0 01.75.75v3.256a2.251 2.251 0 11-1.5 0V6.75h-1A2.25 2.25 0 0111 4.5V3.75a2.25 2.25 0 011.5-2.25zM12.5 13.5a1.5 1.5 0 103 0 1.5 1.5 0 00-3 0z"></path></svg>
-        <span>Merge Pull Request (¡Sí!)</span>
-      </button>
     </div>
-
-  </div>
-</div>
-  <!-- Icono de Check / Celebración -->
-  <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-emerald-500/10 text-emerald-400 mb-2 border border-emerald-500/30 animate-bounce">
-    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
   </div>
 
-  <!-- Mensaje Principal -->
-  <h1 class="text-3xl md:text-4xl font-extrabold text-white code-font">
-    Pull Request <span class="text-[#a6e3a1]">Merged!</span> 🚀💖
-  </h1>
-  
-  <!-- Cuadro de Log con Git info -->
-  <div class="bg-[#11111b] p-4 rounded-lg border border-[#313244] text-left text-xs md:text-sm code-font text-[#a6adc8] space-y-1">
-    <p class="text-emerald-400 font-bold">git log --oneline -1</p>
-    <p class="text-white">f5c2e7b feat: Cita confirmada exitosamente con el amor de mi vida.</p>
-    <p class="pt-2 text-pink-300">Detalles compilados:</p>
-    <p>• Lugar: El café más acogedor de la ciudad ☕</p>
-    <p>• Output: Sonrisas garantizadas e historias compartidas 💫</p>
-  </div>
+  <!-- Sonidos simulados u otros controladores interactivos -->
+  <script>
+    // Configuración
+    // Reemplaza este número por tu número real de WhatsApp si quieres usar el botón final (Formato internacional, ej: 5215512345678)
+    const TU_TELEFONO_WHATSAPP = ""; 
 
-  <p class="text-[#a6adc8] text-sm">
-    Has desplegado con éxito este proyecto de amor en producción. Notifícalo a la central para coordinar hora y lugar.
-  </p>
+    // Mensaje automático para enviarte por WhatsApp
+    const MENSAJE_WHATSAPP = "¡Hola! He aprobado tu Pull Request. Me encantaría aceptar la cita para un café. ¡Vamos a compilar momentos juntos! ☕💖";
 
-  <!-- Botones de Acción final -->
-  <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-    <!-- Enviar a WhatsApp -->
-    <a id="btn-whatsapp" href="#" target="_blank" class="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-bold rounded-lg text-sm flex items-center justify-center space-x-2 shadow-lg transition-transform hover:scale-105">
-      <span>Enviar Confirmación por WhatsApp 💬</span>
-    </a>
-    
-    <!-- Copiar confirmación -->
-    <button onclick="copiarCodigo()" class="w-full sm:w-auto px-5 py-3 bg-[#313244] hover:bg-[#45475a] text-white font-semibold rounded-lg text-sm flex items-center justify-center space-x-2 transition-colors">
-      <span id="txt-copiar">Copiar Token de Cita 📋</span>
-    </button>
-  </div>
+    // Enlace de WhatsApp
+    const btnWhatsapp = document.getElementById('btn-whatsapp');
+    if (TU_TELEFONO_WHATSAPP) {
+      btnWhatsapp.href = `https://wa.me/${TU_TELEFONO_WHATSAPP}?text=${encodeURIComponent(MENSAJE_WHATSAPP)}`;
+    } else {
+      // Si no pones teléfono, envía mensaje directo genérico para compartir por donde ella prefiera
+      btnWhatsapp.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(MENSAJE_WHATSAPP)}`;
+    }
 
-  <button onclick="reiniciarIDE()" class="text-xs text-[#585b70] hover:text-[#a6adc8] underline pt-8 block mx-auto code-font">
-    Volver a ver el código
-  </button>
+    // Cambiar de pestaña en el Editor de Código
+    function switchTab(tabId) {
+      // Lista de todas las pestañas
+      const tabs = ['propuesta', 'razones', 'estilos'];
+      
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tab-btn-${t}`);
+        const header = document.getElementById(`tab-header-${t}`);
+        const content = document.getElementById(`content-${t}`);
+        
+        if (t === tabId) {
+          // Activar tab
+          btn.classList.add('text-white', 'bg-[#313244]');
+          btn.classList.remove('text-[#a6adc8]');
+          header.classList.add('bg-[#1e1e2e]', 'text-[#f5c2e7]', 'border-t-2', 'border-t-pink-500');
+          header.classList.remove('text-[#a6adc8]');
+          content.classList.remove('hidden');
+          content.classList.add('block');
+        } else {
+          // Desactivar tab
+          btn.classList.remove('text-white', 'bg-[#313244]');
+          btn.classList.add('text-[#a6adc8]');
+          header.classList.remove('bg-[#1e1e2e]', 'text-[#f5c2e7]', 'border-t-2', 'border-t-pink-500');
+          header.classList.add('text-[#a6adc8]');
+          content.classList.remove('block');
+          content.classList.add('hidden');
+        }
+      });
 
-</div>
+      logTerminal(`[user] Abierto el archivo: ${tabId === 'propuesta' ? 'propuesta.js' : tabId === 'razones' ? 'razones.json' : 'estilos.css'}`);
+    }
+
+    // Imprimir en la consola (terminal) simulada
+    function logTerminal(message, isError = false) {
+      const term = document.getElementById('terminal-logs');
+      const log = document.createElement('div');
+      if (isError) {
+        log.className = 'text-[#f38ba8]';
+      } else {
+        log.className = 'text-[#a6e3a1]';
+      }
+      log.innerText = message;
+      term.appendChild(log);
+      term.scrollTop = term.scrollHeight; // Auto-scroll al fondo
+    }
+
+    // Lanzar el compilador/Propuesta
+    function ejecutarPropuesta() {
+      logTerminal("[compiler] Ejecutando: npm run date...");
+      logTerminal("[compiler] Resolviendo dependencias sentimentales...");
+      
+      setTimeout(() => {
+        logTerminal("[compiler] ¡Éxito! Propuesta compilada correctamente.");
+        logTerminal("[compiler] Abriendo propuesta de Pull Request...");
+        
+        // Mostrar Modal con animación
+        const modal = document.getElementById('propuesta-modal');
+        modal.classList.remove('pointer-events-none', 'opacity-0');
+        modal.firstElementChild.classList.remove('scale-95');
+        modal.firstElementChild.classList.add('scale-100');
+      }, 800);
+    }
+
+    // Cerrar el modal de propuesta
+    function cerrarPropuesta() {
+      const modal = document.getElementById('propuesta-modal');
+      modal.classList.add('pointer-events-none', 'opacity-0');
+      modal.firstElementChild.classList.add('scale-95');
+      modal.firstElementChild.classList.remove('scale-100');
+      logTerminal("[compiler] Pull Request cerrado temporalmente por el usuario.", true);
+    }
+
+    // Esquivar el botón de NO (Request Changes)
+    let esquivamientos = 0;
+    const frasesEsquivar = [
+      "Request Changes (¡Error!)",
+      "Git Error: 403 Forbidden",
+      "Merge conflict in: corazon.sys",
+      "Sudo apt-get deny: Comando fallido",
+      "¡No te dejaré rechazarme tan fácil! 😉",
+      "Acción bloqueada por el Firewall de Cupido"
+    ];
+
+    function escaparBoton() {
+      const btn = document.getElementById('btn-request-changes');
+      const container = document.getElementById('pr-actions-container');
+      
+      // Obtener límites del contenedor para no salirse de la pantalla
+      const containerRect = container.getBoundingClientRect();
+      const btnRect = btn.getBoundingClientRect();
+
+      // Calcular un desplazamiento random dentro de límites razonables
+      const randomX = Math.floor(Math.random() * (containerRect.width - btnRect.width - 20));
+      const randomY = Math.floor((Math.random() * 100) - 50); // Mover un poco arriba o abajo
+
+      // Aplicar posición absoluta temporal para el juego
+      btn.style.position = 'absolute';
+      btn.style.left = `${Math.max(10, randomX)}px`;
+      btn.style.top = `${randomY}px`;
+
+      // Cambiar texto por frases graciosas de error
+      esquivamientos++;
+      const index = esquivamientos % frasesEsquivar.length;
+      btn.innerText = frasesEsquivar[index];
+
+      logTerminal(`[git-shield] Intento de rechazo esquivado #${esquivamientos}`, true);
+    }
+
+    // Fallback de clic para móviles donde no hay hover
+    function accionarRechazo() {
+      escaparBoton();
+    }
+
+    // Aceptar la cita (¡Merge exitoso!)
+    function aceptarCita() {
+      // Disparar conffeti
+      const duration = 4 * 1000;
+      const animationEnd = Date.now() + duration;
+      const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
+
+      function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      const interval = setInterval(function() {
+        const timeLeft = animationEnd - Date.now();
+
+        if (timeLeft <= 0) {
+          return clearInterval(interval);
+        }
+
+        const particleCount = 50 * (timeLeft / duration);
+        // confeti en ambos lados de la pantalla
+        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+      }, 250);
+
+      // Ocultar modal e ir a la pantalla de éxito
+      cerrarPropuesta();
+      
+      const exitoPantalla = document.getElementById('exito-pantalla');
+      exitoPantalla.classList.remove('hidden');
+      setTimeout(() => {
+        exitoPantalla.classList.remove('opacity-0');
+      }, 50);
+
+      logTerminal("[git] Fusión completada con éxito. ¡Vamos por un café! 🎉☕💖");
+    }
+
+    // Reiniciar IDE para volver a explorar
+    function reiniciarIDE() {
+      const exitoPantalla = document.getElementById('exito-pantalla');
+      exitoPantalla.classList.add('opacity-0');
+      setTimeout(() => {
+        exitoPantalla.classList.add('hidden');
+      }, 500);
+
+      // Resetear posición de botón de rechazo
+      const btn = document.getElementById('btn-request-changes');
+      btn.style.position = 'relative';
+      btn.style.left = 'auto';
+      btn.style.top = 'auto';
+      btn.innerText = "Request Changes (No)";
+      esquivamientos = 0;
+    }
+
+    // Copiar Token de Cita al Portapapeles
+    function copiarCodigo() {
+      const textoACopiar = "VALIDEZ: ILIMITADA | CÓDIGO: MERGE_SUCCESS_CITA_CONFIRMADA | ACCIÓN: TOMAR CAFÉ ☕💖";
+      
+      // Intentar copiar usando document.execCommand para soporte universal en iframe
+      const tempInput = document.createElement("input");
+      tempInput.value = textoACopiar;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      
+      try {
+        const exitoso = document.execCommand('copy');
+        const txtCopiar = document.getElementById('txt-copiar');
+        if (exitoso) {
+          txtCopiar.innerText = "¡Copiado! Envíamelo por chat 💖";
+          setTimeout(() => {
+            txtCopiar.innerText = "Copiar Token de Cita 📋";
+          }, 3000);
+        }
+      } catch (err) {
+        logTerminal("[system] Error al intentar copiar el token", true);
+      }
+      
+      document.body.removeChild(tempInput);
+    }
+  </script>
+</body>
+</html>
