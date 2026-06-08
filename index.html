@@ -166,7 +166,7 @@
           <p class="pl-4"><span class="text-[#f38ba8]">"efectos_secundarios_en_mi"</span>: <span class="text-[#89dceb]">{</span></p>
           <p class="pl-8"><span class="text-[#f38ba8]">"ritmo_cardiaco"</span>: <span class="text-[#f9e2af]">"150bpm"</span>,</p>
           <p class="pl-8"><span class="text-[#f38ba8]">"nerviosismo"</span>: <span class="text-[#cba6f7]">true</span>,</p>
-          <p class="pl-8"><span class="text-[#f38ba8]">"deseo_de_verte"</span>: <span class="text-[#f9e2af]">99999</span></p>
+          <p class="pl-8"><span class="text-[#f9e2af]">"deseo_de_verte"</span>: <span class="text-[#f9e2af]">99999</span></p>
           <p class="pl-4"><span class="text-[#89dceb]">}</span>,</p>
           <p class="pl-4"><span class="text-[#f38ba8]">"promesas"</span>: <span class="text-[#89dceb]">[</span></p>
           <p class="pl-8"><span class="text-[#a6e3a1]">"No te haré explicaciones innecesarias (no mansplaining de código)"</span>,</p>
@@ -408,7 +408,7 @@
         logTerminal("[compiler] ¡Éxito! Propuesta compilada correctamente.");
         logTerminal("[compiler] Abriendo propuesta de Pull Request...");
         
-        // Mostrar Modal con animación
+        // Mostrar Modal con animación eliminando el bloqueo de clics
         const modal = document.getElementById('propuesta-modal');
         modal.classList.remove('pointer-events-none', 'opacity-0');
         modal.firstElementChild.classList.remove('scale-95');
