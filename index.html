@@ -562,6 +562,12 @@ console.log("SCRIPT CARGADO OK");
 function pruebaBoton() {
   alert("BOTON FUNCIONA");
 }
+    // Abrir automáticamente la propuesta al cargar
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    ejecutarPropuesta();
+  }, 2000);
+});
   </script>
 </body>
 </html>
