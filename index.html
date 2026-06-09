@@ -415,12 +415,12 @@
       const yesH = yesBtn.offsetHeight;
 
       // Límites estrictos para moverse cerca de la parte inferior de la tarjeta principal
-      const margin = 16; 
+      const margin = 20; 
       const maxX = cardW - btnW - margin;
       const maxY = cardH - btnH - margin;
 
       // Restricción vertical: nunca subir por encima del nivel de los botones hacia el texto
-      const minY = yesTop - 20; 
+      const minY = yesTop - 30; 
       const rangeY = Math.max(0, maxY - minY);
 
       let safe = false;
