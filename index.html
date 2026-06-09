@@ -167,21 +167,7 @@
     }
 
     .no-phrase.active { opacity: 1; transform: translateY(0); }
-    /* Aparición suave de textos */
-.reveal {
-  opacity: 0;
-  transform: translateY(15px);
-  filter: blur(4px);
-  transition: opacity 1s ease,
-              transform 1s ease,
-              filter 1s ease;
-}
 
-.reveal.in {
-  opacity: 1;
-  transform: translateY(0);
-  filter: blur(0);
-}
     /* ── BOTONES ── */
     .btn {
       display: inline-block;
@@ -438,7 +424,7 @@
     <!-- Typewriter en la pregunta principal -->
     <h1 class="big" id="typewriter-text" style="margin-bottom:18px"></h1>
 
-    <p class="sub reveal" id="frase-final">
+    <p class="sub reveal" style="transition-delay:0.1s">
       esa noche vi unos ojos y una sonrisa<br>
       que me gustaría volver a ver 🌙<br>
       <strong>(síp, así de cursi soy jajaja</strong><br>
@@ -564,19 +550,14 @@
         }
         i++;
         // Velocidad: más lento al inicio, luego normal, pausa en signos
-        const pause = i < 4 ? 140 : (ch === '?' || ch === '!' ? 350 : 80);
+        const pause = i < 4 ? 90 : (ch === '?' || ch === '!' ? 220 : 55);
         setTimeout(type, pause);
       } else {
-            // Quitar cursor al terminar
-              setTimeout(() => {
-              cursor.remove();
-
-              // Mostrar frase con fade
-          document.querySelectorAll('#s4 .reveal')
-        .forEach(el => el.classList.add('in'));
-
-  }, 800);
-}
+        // Quitar cursor al terminar
+        setTimeout(() => cursor.remove(), 800);
+        // Reveal subtexto
+        document.querySelectorAll('#s4 .reveal').forEach(el => el.classList.add('in'));
+      }
     }
     setTimeout(type, 300);
   }
