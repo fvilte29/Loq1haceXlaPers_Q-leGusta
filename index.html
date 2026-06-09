@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Un ultimo intento🤞</title>
+  <title>Un ultimo intento 🤞</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0c0911;              /* Negro violeta de medianoche profundo */
-      --surface: #191224;         /* Terciopelo berenjena enriquecido */
-      --border: #351f38;          /* Ciruela brillante elegante */
-      --pink: #ff6584;            /* Rosa caramelo vibrante */
-      --pink-dark: #d63e63;       /* Rosa cereza oscuro */
-      --text: #fbeef5;            /* Blanco perla pastel con tinte rosa */
-      --muted: #b69db0;           /* Malva apagado para subtítulos */
-      --white: #ffffff;           /* Blanco puro */
+      --bg: #0c0911;
+      --surface: #191224;
+      --border: #351f38;
+      --pink: #ff6584;
+      --pink-dark: #d63e63;
+      --text: #fbeef5;
+      --muted: #b69db0;
+      --white: #ffffff;
       --glow: rgba(255, 101, 132, 0.12);
     }
 
@@ -30,7 +30,6 @@
       overflow: hidden;
     }
 
-    /* Animación de respiración de la aurora del fondo */
     @keyframes aurora-breath {
       0%, 100% { opacity: 0.6; transform: scale(1); }
       50% { opacity: 0.9; transform: scale(1.06) translate(1%, 1%); }
@@ -47,7 +46,7 @@
       animation: aurora-breath 12s ease-in-out infinite alternate;
     }
 
-    /* Transición de ensueño con desenfoque suave y escala */
+    /* ── PANTALLAS ── */
     .screen {
       position: fixed;
       inset: 0;
@@ -79,7 +78,6 @@
       pointer-events: none;
     }
 
-    /* Animación flotante para la tarjeta */
     @keyframes card-float {
       0%, 100% { transform: translateY(0px); }
       50% { transform: translateY(-5px); }
@@ -96,7 +94,16 @@
       box-shadow: 0 0 100px var(--glow), 0 8px 48px rgba(0,0,0,0.7);
       position: relative;
       animation: card-float 7s ease-in-out infinite;
-      backdrop-filter: blur(10px);
+      overflow: hidden; /* para el shimmer */
+    }
+
+    /* Shimmer sutil en la card */
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.015) 0%, transparent 50%, rgba(255,255,255,0.015) 100%);
+      pointer-events: none;
     }
 
     .card::before {
@@ -107,6 +114,7 @@
       width: 64px; height: 2px;
       background: linear-gradient(90deg, transparent, var(--pink), transparent);
       border-radius: 1px;
+      z-index: 1;
     }
 
     .big {
@@ -119,13 +127,13 @@
       letter-spacing: -0.01em;
     }
 
-    .big em { font-style: italic; color: var(--pink); text-shadow: 0 0 15px rgba(255,101,132,0.25); }
+    .big em { font-style: italic; color: var(--pink); text-shadow: 0 0 20px rgba(255,101,132,0.3); }
 
     .sub {
       font-size: 14px;
-      line-height: 1.7;
+      line-height: 1.75;
       color: var(--muted);
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
 
     .sub strong { color: var(--text); font-weight: 400; }
@@ -146,25 +154,21 @@
 
     .dot.on { background: var(--pink); transform: scale(1.3); }
 
-    /* Estilo para las frases dinámicas del No */
+    /* Frase dinámica del No */
     .no-phrase {
-      min-height: 24px;
+      min-height: 22px;
       color: var(--pink);
       font-weight: 500;
-      font-size: 14px;
-      margin-top: -10px;
-      margin-bottom: 16px;
+      font-size: 13px;
+      margin-bottom: 12px;
       opacity: 0;
-      transform: scale(0.9);
-      transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform: translateY(6px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
     }
 
-    .no-phrase.active {
-      opacity: 1;
-      transform: scale(1);
-    }
+    .no-phrase.active { opacity: 1; transform: translateY(0); }
 
-    /* ── BOTONES GENERALES ── */
+    /* ── BOTONES ── */
     .btn {
       display: inline-block;
       padding: 16px 32px;
@@ -174,63 +178,103 @@
       font-weight: 500;
       cursor: pointer;
       border: none;
-      transition: transform 0.15s, background 0.2s, box-shadow 0.2s;
       letter-spacing: 0.01em;
       width: 100%;
     }
 
-    .btn:active { transform: scale(0.97); }
+    .btn:active { transform: scale(0.97) !important; }
 
     .btn-primary {
       background: var(--pink);
       color: #120e1d;
       font-weight: 600;
-      box-shadow: 0 4px 24px rgba(255, 101, 132, 0.25);
+      box-shadow: 0 4px 24px rgba(255,101,132,0.25);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
     }
 
-    .btn-primary:hover { 
-      background: var(--pink-dark); 
+    .btn-primary:hover {
+      background: var(--pink-dark);
       transform: translateY(-2px);
-      box-shadow: 0 6px 30px rgba(255, 101, 132, 0.4);
+      box-shadow: 0 6px 30px rgba(255,101,132,0.4);
     }
 
-    /* ── GRUPO DE BOTONES SÍ/NO INLINE ── */
-    .btn-group {
-      display: flex;
-      gap: 12px;
+    /* Área fija para el juego Sí/No */
+    .btn-arena {
+      position: relative;
       width: 100%;
-      margin-top: 12px;
+      height: 116px;
+      margin-top: 8px;
     }
 
     .btn-yes {
+      position: absolute;
+      top: 0; left: 0; right: 0;
       background: var(--pink);
       color: #120e1d;
       font-weight: 600;
-      box-shadow: 0 4px 24px rgba(255, 101, 132, 0.25);
-      flex: 1;
+      box-shadow: 0 4px 24px rgba(255,101,132,0.25);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
     }
 
-    .btn-yes:hover { 
-      background: var(--pink-dark); 
+    .btn-yes:hover {
+      background: var(--pink-dark);
       transform: translateY(-2px);
-      box-shadow: 0 6px 30px rgba(255, 101, 132, 0.3);
+      box-shadow: 0 6px 30px rgba(255,101,132,0.3);
     }
 
     .btn-no {
+      position: absolute;
+      top: 62px; left: 0;
+      width: 100%;
       background: transparent;
       color: var(--muted);
       border: 1px solid var(--border);
-      flex: 1;
-      /* Transición súper responsiva para reaccionar al toque */
-      transition: left 0.14s cubic-bezier(0.34, 1.56, 0.64, 1), 
-                  top 0.14s cubic-bezier(0.34, 1.56, 0.64, 1), 
-                  transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-                  opacity 0.3s ease;
+      font-size: 14px;
+      padding: 13px 20px;
+      transition: left 0.15s cubic-bezier(0.34,1.56,0.64,1),
+                  top  0.15s cubic-bezier(0.34,1.56,0.64,1),
+                  opacity 0.4s ease,
+                  transform 0.2s ease;
     }
 
     .btn-no:hover { color: var(--text); border-color: var(--pink); }
 
-    /* ── PANTALLA FINAL SÍ ── */
+    /* ── TYPEWRITER ── */
+    .typewriter { display: inline; }
+    .typewriter-cursor {
+      display: inline-block;
+      width: 2px;
+      background: var(--pink);
+      animation: blink 0.75s step-end infinite;
+      margin-left: 2px;
+      vertical-align: middle;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* ── CORAZONES FLOTANTES ── */
+    .floating-hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .fheart {
+      position: absolute;
+      bottom: -60px;
+      font-size: 20px;
+      animation: float-up linear forwards;
+      opacity: 0.7;
+    }
+
+    @keyframes float-up {
+      0%   { transform: translateY(0) scale(1) rotate(0deg); opacity: 0.8; }
+      80%  { opacity: 0.6; }
+      100% { transform: translateY(-110vh) scale(0.6) rotate(20deg); opacity: 0; }
+    }
+
+    /* ── FINAL SÍ ── */
     .heart { font-size: 54px; display: block; margin-bottom: 20px; animation: hb 1.3s ease-in-out infinite; }
     @keyframes hb { 0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
 
@@ -238,28 +282,91 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 20px 36px;
+      padding: 18px 32px;
       background: #25d366;
       color: #fff;
       border-radius: 14px;
       font-family: 'DM Sans', sans-serif;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 500;
       text-decoration: none;
       box-shadow: 0 4px 20px rgba(37,211,102,0.25);
       transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
       border: none;
       cursor: pointer;
+      width: 100%;
+      justify-content: center;
     }
 
-    .btn-wsp:hover { 
-      background: #19bb53; 
+    .btn-wsp:hover {
+      background: #19bb53;
       transform: translateY(-1.5px);
       box-shadow: 0 6px 26px rgba(25,187,83,0.35);
     }
 
-    /* ── PANTALLA FINAL NO ── */
-    .sorry-emoji { font-size: 52px; display: block; margin-bottom: 20px; }
+    /* ── FINAL NO — CUENTA REGRESIVA ── */
+    .sorry-emoji { font-size: 52px; display: block; margin-bottom: 16px; }
+
+    .countdown-wrap {
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .countdown-label {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .countdown-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 52px;
+      font-weight: 300;
+      color: var(--pink);
+      line-height: 1;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 20px rgba(255,101,132,0.4);
+    }
+
+    /* ── FADE A NEGRO FINAL ── */
+    #blackout {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 2s ease;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #blackout.fade-in { opacity: 1; pointer-events: all; }
+
+    #final-thanks {
+      color: rgba(255,255,255,0);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(16px, 4vw, 22px);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      transition: color 1.5s ease 0.5s;
+      text-align: center;
+    }
+
+    #final-thanks.show { color: rgba(255,255,255,0.55); }
+
+    /* ── ANIMACIÓN ENTRADA DE TEXTOS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.in { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 480px) {
       .card { padding: 36px 20px; }
@@ -268,232 +375,352 @@
 </head>
 <body>
 
-  <!-- S1 -->
-  <div class="screen active" id="s1">
-    <div class="card">
-      <div class="step-dots"><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-      <h1 class="big">Holaaa 👋👀</h1>
-      <p class="sub">ese dia me contaste q trabajabas diseñando paginas y que te gustaba mucho tu trabajo, por eso pense en hacer <strong>esto</strong>.</p>
-      <p class="sub">un ultimo intento 😅</p>
-      <button class="btn btn-primary" onclick="go(1,2)">Continuar</button>
+<!-- Corazones flotantes (solo pantalla Sí) -->
+<div class="floating-hearts" id="floating-hearts"></div>
+
+<!-- S1: Hola -->
+<div class="screen active" id="s1">
+  <div class="card">
+    <div class="step-dots"><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <h1 class="big reveal">Holaaa 👋👀</h1>
+    <p class="sub reveal" style="transition-delay:0.15s">
+      ese día me contaste que trabajabas diseñando páginas<br>
+      y que te gustaba mucho tu trabajo.<br>
+      Por eso pensé en hacer <strong>esto</strong>.
+    </p>
+    <p class="sub reveal" style="transition-delay:0.25s; margin-bottom:28px">un último intento 😅</p>
+    <button class="btn btn-primary reveal" style="transition-delay:0.35s" onclick="go(1,2)">Continuar →</button>
+  </div>
+</div>
+
+<!-- S2: ¿Cursi? -->
+<div class="screen" id="s2">
+  <div class="card">
+    <div class="step-dots"><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <h1 class="big reveal">Soy demasiado <em>cursi</em>?<br>jajaja</h1>
+    <p class="sub reveal" style="transition-delay:0.15s; margin-bottom:28px">no me juzgues todavía, soy un buen chico 😆</p>
+    <button class="btn btn-primary reveal" style="transition-delay:0.25s" onclick="go(2,3)">Sí 😅</button>
+  </div>
+</div>
+
+<!-- S3: Linda y tierna -->
+<div class="screen" id="s3">
+  <div class="card">
+    <div class="step-dots"><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
+    <h1 class="big reveal">Es que me<br>pareciste muy<br><em>linda y tierna…</em></h1>
+    <p class="sub reveal" style="transition-delay:0.15s">
+      Quería preguntarte algo pero no sabía cómo.<br>
+      Soy tímido jajaj 😳
+    </p>
+    <button class="btn btn-primary reveal" style="transition-delay:0.25s" onclick="go(3,4)">¿Qué cosa?</button>
+  </div>
+</div>
+
+<!-- S4: La pregunta -->
+<div class="screen" id="s4">
+  <div class="card">
+    <div class="step-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div></div>
+
+    <!-- Typewriter en la pregunta principal -->
+    <h1 class="big" id="typewriter-text" style="margin-bottom:18px"></h1>
+
+    <p class="sub reveal" style="transition-delay:0.1s">
+      esa noche vi unos ojos y una sonrisa<br>
+      que me gustaría volver a ver 🌙<br>
+      <strong>(síp, así de cursi soy jajaja</strong><br>
+      no sabés la vergüenza que tengo al hacer esto)
+    </p>
+
+    <p id="no-phrase" class="no-phrase"></p>
+
+    <div class="btn-arena" id="btn-arena">
+      <button class="btn btn-yes reveal" id="btn-yes" style="transition-delay:0.2s" onclick="goSi()">Sí 💕</button>
+      <button class="btn btn-no" id="btn-no" onmouseover="escapar(event)" onclick="escapar(event)">No</button>
     </div>
   </div>
+</div>
 
-  <!-- S2 -->
-  <div class="screen" id="s2">
-    <div class="card">
-      <div class="step-dots"><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-      <h1 class="big">Soy demasiado <em>cursi</em>? jajaja</h1>
-      
-      <button class="btn btn-primary" onclick="go(2,3)">Sí 😅</button></p>
-      <p class="sub">No me juzgues todavía, soy un buen chico 😆</p>
+<!-- S5: Sí -->
+<div class="screen" id="s5">
+  <div class="card">
+    <div class="step-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div></div>
+    <span class="heart">💖</span>
+    <h1 class="big reveal">Bueno…<br>ya tengo tu <em>Gmail</em> 😌</h1>
+    <p class="sub reveal" style="transition-delay:0.15s; margin-bottom:8px">
+      Pero qué te parece si hablamos por WhatsApp<br>
+      y quedamos en qué hacer.
+    </p>
+    <p class="sub reveal" style="transition-delay:0.25s; margin-bottom:28px">
+      Tengo un par de ideas interesantes 😉
+    </p>
+    <a id="btn-wsp" href="#" target="_blank" class="btn-wsp reveal" style="transition-delay:0.35s">
+      <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Abrir WhatsApp
+    </a>
+  </div>
+</div>
+
+<!-- S6: No definitivo -->
+<div class="screen" id="s6">
+  <div class="card">
+    <div class="step-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div></div>
+    <span class="sorry-emoji">🙈</span>
+    <h1 class="big reveal" style="font-size:clamp(30px,7vw,42px)">Perdón si fue<br><em>incómodo</em></h1>
+    <p class="sub reveal" style="transition-delay:0.15s">tenía que intentarlo 😌</p>
+    <p class="sub reveal" style="transition-delay:0.25s">adioooos 👋🏻</p>
+
+    <div class="countdown-wrap reveal" style="transition-delay:0.4s" id="countdown-wrap">
+      <p class="countdown-label">Esta página se autodestruirá en</p>
+      <div class="countdown-number" id="countdown-num">5</div>
     </div>
   </div>
+</div>
 
-  <!-- S3 -->
-  <div class="screen" id="s3">
-    <div class="card">
-      <div class="step-dots"><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
-      <h1 class="big">Es que me<br>pareciste muy<br><em>linda y tierna…</em></h1>
-      <p class="sub">Quería preguntarte algo pero no sabía cómo.<br>Soy tímido jajaj 😳</p>
-      <button class="btn btn-primary" onclick="go(3,4)">¿Qué cosa?</button>
-    </div>
-  </div>
+<!-- Fundido a negro final -->
+<div id="blackout">
+  <p id="final-thanks">Gracias por llegar hasta aquí ❤️</p>
+</div>
 
-  <!-- S4: La pregunta -->
-  <div class="screen" id="s4">
-    <div class="card">
-      <div class="step-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div></div>
-      <h1 class="big">¿Te gustaría<br>salir<br><em>conmigo?</em></h1>
-      <p class="sub">
-        esa noche vi unos ojos y una sonrisa<br>
-        que me gustaría volver a ver<br>
-        <strong>(síp, así de cursi soy jajaja</strong><br>
-        no sabés la vergüenza que tengo al hacer esto)
-      </p>
+<script>
+  // ─── CONFIG ──────────────────────────────────────────────
+  const TELEFONO = "5493885701329";
+  const MENSAJE  = "Hola!! Vi tu página… 👀";
 
-      <!-- Espacio dedicado para las frases divertidas -->
-      <p id="no-phrase" class="no-phrase"></p>
+  document.getElementById('btn-wsp').href = TELEFONO
+    ? `https://wa.me/${TELEFONO}?text=${encodeURIComponent(MENSAJE)}`
+    : `https://api.whatsapp.com/send?text=${encodeURIComponent(MENSAJE)}`;
 
-      <!-- Grupo de botones compactos inline -->
-      <div class="btn-group">
-        <button class="btn btn-yes" id="btn-yes" onclick="goSi()">Sí 💕</button>
-        <button class="btn btn-no" id="btn-no" onclick="escapar(event)">No</button>
-      </div>
-    </div>
-  </div>
+  // ─── REVEAL AL ACTIVAR PANTALLA ──────────────────────────
+  function activateReveals(screenEl) {
+    const items = screenEl.querySelectorAll('.reveal');
+    items.forEach(el => el.classList.remove('in'));
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        items.forEach(el => el.classList.add('in'));
+      });
+    });
+  }
 
-  <!-- S5: Sí -->
-  <div class="screen" id="s5">
-    <div class="card">
-      <div class="step-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div></div>
-      <span class="heart">💖</span>
-      <h1 class="big">Bueno…<br>ya tengo tu <em>mail</em> 😌</h1>
-      <p class="sub" style="margin-bottom:28px">
-        pero qué te parece si mejor<br>
-        <strong>hablamos por WhatsApp</strong> 💬??
-      </p>
-      <a id="btn-wsp" href="#" target="_blank" class="btn-wsp">
-        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Abrir WhatsApp
-      </a>
-    </div>
-  </div>
+  // ─── NAVEGACIÓN ──────────────────────────────────────────
+  function go(from, to) {
+    const a = document.getElementById('s' + from);
+    const b = document.getElementById('s' + to);
+    a.classList.add('out');
+    setTimeout(() => {
+      a.classList.remove('active', 'out');
+      b.classList.add('active');
+      activateReveals(b);
+      if (to === 4) startTypewriter();
+      if (to === 5) startFloatingHearts();
+      if (to === 6) startCountdown();
+    }, 430);
+  }
 
-  <!-- S6: No definitivo -->
-  <div class="screen" id="s6">
-    <div class="card">
-      <div class="step-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div></div>
-      <span class="sorry-emoji">🙈</span>
-      <h1 class="big" style="font-size: clamp(32px,7vw,44px)">Perdón si fue<br><em>incómodo</em></h1>
-      <p class="sub">tenia que intentarlo 😌</p>
-       <p class="sub">adioooos👋🏻</p>
-    </div>
-  </div>
+  // Primera pantalla: activar reveals al cargar
+  window.addEventListener('load', () => {
+    activateReveals(document.getElementById('s1'));
+  });
 
-  <script>
-    // ─── CONFIG ───────────────────────────────────────────
-    const TELEFONO = "5493885701329"; // ej: "5493512345678"
-    const MENSAJE  = "";
+  // ─── TYPEWRITER ──────────────────────────────────────────
+  const twText  = '¿Te gustaría\nsalir\nconmigo?';
+  const twEl    = document.getElementById('typewriter-text');
 
-    document.getElementById('btn-wsp').href = TELEFONO
-      ? `https://wa.me/${TELEFONO}?text=${encodeURIComponent(MENSAJE)}`
-      : `https://api.whatsapp.com/send?text=${encodeURIComponent(MENSAJE)}`;
+  function startTypewriter() {
+    twEl.innerHTML = '';
+    let i = 0;
 
-    // ─── NAVEGACIÓN ───────────────────────────────────────
-    function go(from, to) {
-      const a = document.getElementById('s' + from);
-      const b = document.getElementById('s' + to);
-      a.classList.add('out');
-      setTimeout(() => {
-        a.classList.remove('active', 'out');
-        b.classList.add('active');
-      }, 420);
+    // Cursor
+    const cursor = document.createElement('span');
+    cursor.className = 'typewriter-cursor';
+    cursor.style.height = '0.75em';
+    cursor.style.width  = '3px';
+    cursor.style.display = 'inline-block';
+    cursor.style.verticalAlign = 'middle';
+    cursor.style.borderRadius = '1px';
+    twEl.appendChild(cursor);
+
+    function type() {
+      if (i < twText.length) {
+        const ch = twText[i];
+        if (ch === '\n') {
+          cursor.insertAdjacentHTML('beforebegin', '<br>');
+        } else {
+          cursor.insertAdjacentHTML('beforebegin', ch === '<' ? '&lt;' : ch);
+        }
+        i++;
+        // Velocidad: más lento al inicio, luego normal, pausa en signos
+        const pause = i < 4 ? 90 : (ch === '?' || ch === '!' ? 220 : 55);
+        setTimeout(type, pause);
+      } else {
+        // Quitar cursor al terminar
+        setTimeout(() => cursor.remove(), 800);
+        // Reveal subtexto
+        document.querySelectorAll('#s4 .reveal').forEach(el => el.classList.add('in'));
+      }
+    }
+    setTimeout(type, 300);
+  }
+
+  // ─── BOTÓN NO QUE ESCAPA ─────────────────────────────────
+  const textos = [
+    "¿Segura? 🤔",
+    "y si me das una oportunidad? 🥺",
+    "Te prometo que la pasaremos super ✨",
+    "¿Ni un cafecito? Prometo que no muerdo ☕",
+    "Pensalo bien, el algoritmo dice que haríamos gran dupla 📈",
+    "¿Y si te digo que yo invito la merienda? 🍰",
+    "Última oportunidad... 👀",
+  ];
+  let intentos  = 0;
+  let finalizado = false;
+
+  function escapar(e) {
+    if (finalizado) return;
+    if (e) e.preventDefault();
+
+    const btn   = document.getElementById('btn-no');
+    const arena = document.getElementById('btn-arena');
+    const yesEl = document.getElementById('btn-yes');
+
+    // Convertir a absoluto relativo al arena la primera vez
+    if (btn.parentNode !== arena) {
+      const r = btn.getBoundingClientRect();
+      const ar = arena.getBoundingClientRect();
+      btn.style.left = (r.left - ar.left) + 'px';
+      btn.style.top  = (r.top  - ar.top)  + 'px';
+      btn.style.position = 'absolute';
+      btn.style.width = btn.offsetWidth + 'px';
+      arena.appendChild(btn);
     }
 
-    // ─── BOTÓN NO QUE ESCAPA (CONFINADO AL BORDE DE LA TARJETA) ───
-    const textos = [
-      "¿Segura? 🤔",
-      "y si me das una oportunidad? 🥺",
-      "Te prometo que la pasaremos super ✨",
-      "¿Ni un cafecito? Prometo que no muerdo ☕",
-      "Pensalo bien, el algoritmo dice que haríamos gran dupla 📈",
-      "¿Y si te digo que yo invito la merienda? 🍰",
-      "Última oportunidad? 👀 ",
-    ];
-    let intentos = 0;
-    let finalizado = false;
+    const arenaW = arena.offsetWidth;
+    const arenaH = arena.offsetHeight;
+    const btnW   = btn.offsetWidth;
+    const btnH   = btn.offsetHeight;
+    const yesH   = yesEl.offsetHeight;
+    const margin = 8;
 
-    function escapar(e) {
-      if (finalizado) return;
-      if (e) {
-        e.preventDefault(); // Detener comportamientos por defecto y toques dobles en móviles
-      }
+    // Zona segura: debajo del Sí, dentro del arena
+    const minY = yesH + 10;
+    const maxY = arenaH - btnH - margin;
+    const maxX = arenaW - btnW - margin;
 
-      const btn = document.getElementById('btn-no');
-      const card = btn.closest('.card');
-      const yesBtn = document.getElementById('btn-yes');
+    // Generar posición que no pise al Sí
+    let nx, ny, tries = 0;
+    do {
+      nx = margin + Math.floor(Math.random() * Math.max(1, maxX - margin));
+      ny = minY  + Math.floor(Math.random() * Math.max(1, maxY - minY));
+      tries++;
+    } while (tries < 50 && ny < yesH + 8);
 
-      // Convertimos el botón a posición "absolute" relativa a la tarjeta principal (.card)
-      btn.style.position = 'absolute';
-      btn.style.width = 'auto'; 
-      btn.style.padding = '12px 24px';
-      btn.style.zIndex = '50';
+    btn.style.left = nx + 'px';
+    btn.style.top  = ny + 'px';
 
-      // Si todavía no está como hijo directo de la tarjeta, lo movemos en el árbol DOM
-      if (btn.parentNode !== card) {
-        card.appendChild(btn);
-      }
+    // Mostrar frase
+    const phrase = document.getElementById('no-phrase');
+    phrase.classList.remove('active');
+    setTimeout(() => {
+      phrase.textContent = textos[intentos % textos.length];
+      phrase.classList.add('active');
+    }, 60);
 
-      // Obtener dimensiones reales de la tarjeta y del botón
-      const cardW = card.clientWidth;
-      const cardH = card.clientHeight;
-      const btnW = btn.offsetWidth;
-      const btnH = btn.offsetHeight;
-
-      // Obtener posición y dimensiones del botón "Sí" relativas a la tarjeta
-      const yesLeft = yesBtn.offsetLeft;
-      const yesTop = yesBtn.offsetTop;
-      const yesW = yesBtn.offsetWidth;
-      const yesH = yesBtn.offsetHeight;
-
-      // Límites estrictos para moverse cerca de la parte inferior de la tarjeta principal
-      const margin = 20; 
-      const maxX = cardW - btnW - margin;
-      const maxY = cardH - btnH - margin;
-
-      // Restricción vertical: nunca subir por encima del nivel de los botones hacia el texto
-      const minY = yesTop - 40; 
-      const rangeY = Math.max(0, maxY - minY);
-
-      let safe = false;
-      let attempts = 0;
-      let newX = 0;
-      let newY = 0;
-
-      // Algoritmo de evasión que previene colisiones con el botón "Sí" y se mantiene abajo
-      while (!safe && attempts < 150) {
-        newX = Math.floor(Math.random() * (maxX - margin)) + margin;
-        newY = Math.floor(minY + Math.random() * rangeY);
-
-        // Verificar superposición con un pequeño margen extra para que no se pisen
-        const overlapX = (newX + btnW + 12 > yesLeft) && (newX - 12 < yesLeft + yesW);
-        const overlapY = (newY + btnH + 12 > yesTop) && (newY - 12 < yesTop + yesH);
-
-        if (!(overlapX && overlapY)) {
-          safe = true;
-        }
-        attempts++;
-      }
-
-      // Aplicar posición con transiciones fluidas de CSS
-      btn.style.left = newX + 'px';
-      btn.style.top  = newY + 'px';
-
-      // Rotación y ajuste dinámico de escala
-      const randomRotation = Math.floor(Math.random() * 24 - 12); // entre -12deg y 12deg
-      btn.style.transform = `scale(0.92) rotate(${randomRotation}deg)`;
-
-      // Mostrar las frases arriba animadas
-      const phraseElement = document.getElementById('no-phrase');
-      phraseElement.classList.remove('active');
-
+    // Última vez → fade + ir a pantalla no
+    if (intentos >= textos.length - 1) {
+      finalizado = true;
+      btn.style.pointerEvents = 'none';
       setTimeout(() => {
-        phraseElement.textContent = textos[intentos % textos.length];
-        phraseElement.classList.add('active');
-      }, 50);
+        btn.style.transition += ', opacity 0.5s ease';
+        btn.style.opacity = '0';
+        setTimeout(() => goNo(), 700);
+      }, 1000);
+      return;
+    }
 
-      // Último intento → desvanecer botón e ir a pantalla final
-      if (intentos >= textos.length - 1) {
-        finalizado = true;
-        btn.style.pointerEvents = 'none';
-        setTimeout(() => {
-          btn.style.transition += ', opacity 0.5s ease';
-          btn.style.opacity = '0';
-          setTimeout(() => goNo(), 600);
-        }, 1200);
+    intentos++;
+  }
+
+  // ─── SÍ ──────────────────────────────────────────────────
+  function goSi() {
+    // Confetti rosa
+    const end    = Date.now() + 4500;
+    const colors = ['#ff6584','#f5b8ce','#fff0f5','#d63e63','#ffe4ec'];
+    (function frame() {
+      confetti({ particleCount: 5, angle: 60,  spread: 65, origin: { x: 0 }, colors });
+      confetti({ particleCount: 5, angle: 120, spread: 65, origin: { x: 1 }, colors });
+      if (Date.now() < end) requestAnimationFrame(frame);
+    })();
+    go(4, 5);
+  }
+
+  // Corazones flotantes
+  function startFloatingHearts() {
+    const container = document.getElementById('floating-hearts');
+    container.innerHTML = '';
+    const emojis = ['💖','💗','💓','✨','🌸','💝'];
+    let count = 0;
+    const interval = setInterval(() => {
+      if (count > 28) { clearInterval(interval); return; }
+      const h = document.createElement('div');
+      h.className = 'fheart';
+      h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      h.style.left = Math.random() * 95 + 'vw';
+      h.style.fontSize = (14 + Math.random() * 18) + 'px';
+      const dur = 4 + Math.random() * 4;
+      h.style.animationDuration = dur + 's';
+      h.style.animationDelay = '0s';
+      container.appendChild(h);
+      setTimeout(() => h.remove(), dur * 1000 + 200);
+      count++;
+    }, 300);
+  }
+
+  // ─── NO DEFINITIVO + CUENTA REGRESIVA ────────────────────
+  function goNo() {
+    go(4, 6);
+    // La cuenta regresiva arranca cuando aparece la pantalla
+    // startCountdown() se llama desde go()
+  }
+
+  let countdownTimer = null;
+
+  function startCountdown() {
+    let n = 5;
+    const numEl = document.getElementById('countdown-num');
+    numEl.textContent = n;
+
+    // Animación de pulso en cada número
+    function pulse() {
+      numEl.style.transform = 'scale(1.4)';
+      numEl.style.opacity   = '0.5';
+      setTimeout(() => {
+        numEl.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+        numEl.style.transform = 'scale(1)';
+        numEl.style.opacity   = '1';
+      }, 50);
+    }
+
+    countdownTimer = setInterval(() => {
+      n--;
+      if (n <= 0) {
+        clearInterval(countdownTimer);
+        numEl.textContent = '...';
+        setTimeout(fadeToBlack, 600);
         return;
       }
+      numEl.style.transition = 'none';
+      numEl.textContent = n;
+      setTimeout(pulse, 30);
+    }, 1000);
+  }
 
-      intentos++;
-    }
-
-    // ─── SÍ ───────────────────────────────────────────────
-    function goSi() {
-      const end    = Date.now() + 4000;
-      const colors = ['#ff6584','#f5b8ce','#fff0f5','#d63e63','#ffe4ec'];
-      (function frame() {
-        confetti({ particleCount: 5, angle: 60,  spread: 65, origin: { x: 0 }, colors });
-        confetti({ particleCount: 5, angle: 120, spread: 65, origin: { x: 1 }, colors });
-        if (Date.now() < end) requestAnimationFrame(frame);
-      })();
-      go(4, 5);
-    }
-
-    // ─── NO DEFINITIVO ────────────────────────────────────
-    function goNo() {
-      go(4, 6);
-    }
-  </script>
+  function fadeToBlack() {
+    const blackout = document.getElementById('blackout');
+    blackout.style.pointerEvents = 'all';
+    blackout.classList.add('fade-in');
+    setTimeout(() => {
+      document.getElementById('final-thanks').classList.add('show');
+    }, 1500);
+  }
+</script>
 </body>
 </html>
