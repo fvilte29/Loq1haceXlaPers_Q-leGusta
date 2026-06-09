@@ -38,7 +38,11 @@
     .btn-glow {
       animation: pulse-glow 2s infinite;
     }
+    #propuesta-modal.hidden-force {
+  display: none;
+}
   </style>
+  
 </head>
 <body class="bg-[#1e1e2e] text-[#cdd6f4] min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-[#f5c2e7] selection:text-[#11111b]">
 
@@ -220,7 +224,7 @@
   </footer>
 
   <!-- MODAL / INTERFAZ DE PROPUESTA (GITHHUB PULL REQUEST) -->
-  <div id="propuesta-modal" class="fixed inset-0 bg-[#11111b]/80 backdrop-blur-md flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none transition-all duration-300 hidden">
+  <div id="propuesta-modal" class="fixed inset-0 bg-[#11111b]/80 backdrop-blur-md flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none transition-all duration-300">
     <div class="bg-[#1e1e2e] border-2 border-[#f5c2e7] w-full max-w-2xl rounded-xl shadow-2xl overflow-hidden flex flex-col transition-transform duration-300 scale-95">
       
       <!-- Barra superior de la ventana del Modal -->
@@ -400,42 +404,48 @@
     }
 
     // Lanzar el compilador/Propuesta
-    function ejecutarPropuesta() {
+   function ejecutarPropuesta() {
       console.log("click manual");
+
       logTerminal("[compiler] Ejecutando: npm run date...");
       logTerminal("[compiler] Resolviendo dependencias sentimentales...");
-      
-      setTimeout(() => {
+
+    setTimeout(() => {
         logTerminal("[compiler] ¡Éxito! Propuesta compilada correctamente.");
         logTerminal("[compiler] Abriendo propuesta de Pull Request...");
-        
-        // Primero aseguramos quitar la clase hidden para que exista en el árbol de renderizado
-        const modal = document.getElementById('propuesta-modal');
-        modal.classList.remove('hidden');
-        
-        // Retrasamos levemente para permitir la transición CSS suave de opacidad
-        setTimeout(() => {
-          modal.classList.remove('pointer-events-none', 'opacity-0');
-          modal.firstElementChild.classList.remove('scale-95');
-          modal.firstElementChild.classList.add('scale-100');
-        }, 30);
-      }, 800);
-    }
+
+    const modal = document.getElementById('propuesta-modal');
+    const modalContent = modal.firstElementChild;
+
+    // Mostrar modal
+    modal.classList.remove('hidden');
+
+    // Forzar reflow del navegador
+    void modal.offsetWidth;
+
+    // Activar transición
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+
+    modalContent.classList.remove('scale-95');
+    modalContent.classList.add('scale-100');
+
+  }, 800);
+}
 
     // Cerrar el modal de propuesta
     function cerrarPropuesta() {
-      const modal = document.getElementById('propuesta-modal');
-      modal.classList.add('pointer-events-none', 'opacity-0');
-      modal.firstElementChild.classList.add('scale-95');
-      modal.firstElementChild.classList.remove('scale-100');
-      
-      // Ocultar físicamente el modal después de que termine la animación
-      setTimeout(() => {
-        modal.classList.add('hidden');
-      }, 300);
-      
-      logTerminal("[compiler] Pull Request cerrado temporalmente por el usuario.", true);
-    }
+  const modal = document.getElementById('propuesta-modal');
+  const modalContent = modal.firstElementChild;
+
+  modal.classList.add('opacity-0', 'pointer-events-none');
+
+  modalContent.classList.add('scale-95');
+  modalContent.classList.remove('scale-100');
+
+  setTimeout(() => {
+    modal.classList.add('hidden-force');
+  }, 300);
+}
 
     // Esquivar el botón de NO (Request Changes)
     let esquivamientos = 0;
