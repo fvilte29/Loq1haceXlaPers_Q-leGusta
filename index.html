@@ -576,12 +576,11 @@
 
   // ─── BOTÓN NO QUE ESCAPA ──────────────────────────────────────
   const textos = [
-    "¿Segura? 🤔",
     "y si me das una oportunidad? 🥺",
     "Te prometo que la pasaremos super ✨",
     "¿Ni un cafecito? Prometo que no muerdo ☕",
-    "Pensalo bien, el algoritmo dice que haríamos gran dupla 📈",
-    "¿Y si te digo que yo invito la merienda? 🍰",
+    "Esa noche me prometiste enseñarme a bailar folclore",
+    "¿Segura? 🤔",
     "Última oportunidad... 👀",
   ];
 
@@ -674,7 +673,7 @@
       setTimeout(() => {
         btn.style.opacity = '0';
         setTimeout(() => goNo(), 800);
-      }, 1100);
+      }, 800);
       return;
     }
 
@@ -718,7 +717,7 @@
 
   // ─── CUENTA REGRESIVA ─────────────────────────────────────────
   function startCountdown() {
-    let n = 10;
+    let n = 8;
     const numEl = document.getElementById('countdown-num');
     numEl.textContent = n;
 
