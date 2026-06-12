@@ -513,6 +513,25 @@
 </div>
 
 <script>
+  // ─── DESBLOQUEO DE AUDIO (requiere interacción previa del usuario) ───
+  // Los navegadores bloquean autoplay con sonido hasta que el usuario
+  // toca/hace click en la página. Aprovechamos los clicks anteriores
+  // para crear y reanudar un AudioContext silencioso, lo que "desbloquea"
+  // el audio para reproductores posteriores.
+  let audioUnlocked = false;
+
+  function unlockAudio() {
+    if (audioUnlocked) return;
+    audioUnlocked = true;
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      ctx.resume().then(() => ctx.close());
+    } catch(e) {}
+  }
+
+  // Escuchar el primer click en cualquier botón de las pantallas iniciales
+  document.addEventListener('click', unlockAudio, { once: true });
+
   // ─── CONFIG ───────────────────────────────────────────────────
   const TELEFONO = "5493885701329";
   const MENSAJE  = "";
@@ -559,6 +578,10 @@
     if (playerS4 && typeof playerS4.playVideo === 'function') {
       playerS4.seekTo(0);
       playerS4.playVideo();
+      // Intentar desmutear después de un tick — el usuario ya hizo click
+      setTimeout(() => {
+        try { playerS4.unMute(); } catch(e) {}
+      }, 300);
     }
   }
 
@@ -569,8 +592,14 @@
       playerS4.pauseVideo();
       playerS5.seekTo(t, true);
       playerS5.playVideo();
+      setTimeout(() => {
+        try { playerS5.unMute(); } catch(e) {}
+      }, 300);
     } catch(e) {
-      if (playerS5) playerS5.playVideo();
+      if (playerS5) {
+        playerS5.playVideo();
+        setTimeout(() => { try { playerS5.unMute(); } catch(e2) {} }, 300);
+      }
     }
   }
 
