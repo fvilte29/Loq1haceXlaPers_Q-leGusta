@@ -6,6 +6,7 @@
   <title>Un ultimo intento 🤞</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="https://www.youtube.com/iframe_api"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -46,7 +47,6 @@
       animation: aurora-breath 12s ease-in-out infinite alternate;
     }
 
-    /* ── PANTALLAS ── */
     .screen {
       position: fixed;
       inset: 0;
@@ -81,6 +81,14 @@
                   filter 0.6s cubic-bezier(0.4, 0, 1, 1);
     }
 
+    /* S4 y S5 necesitan scroll porque tienen video + contenido */
+    #s4, #s5 {
+      align-items: flex-start;
+      overflow-y: auto;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+
     @keyframes card-float {
       0%, 100% { transform: translateY(0px); }
       50%       { transform: translateY(-5px); }
@@ -99,6 +107,9 @@
       animation: card-float 7s ease-in-out infinite;
       overflow: hidden;
     }
+
+    /* Sin float en cards con video para no cortar */
+    #s4 .card, #s5 .card { animation: none; }
 
     .card::after {
       content: '';
@@ -156,7 +167,6 @@
 
     .dot.on { background: var(--pink); transform: scale(1.3); }
 
-    /* ── REVEAL ── */
     .reveal {
       opacity: 0;
       transform: translateY(14px);
@@ -165,7 +175,6 @@
 
     .reveal.in { opacity: 1; transform: translateY(0); }
 
-    /* ── TYPEWRITER ── */
     .typewriter-cursor {
       display: inline-block;
       width: 3px;
@@ -179,7 +188,6 @@
 
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
-    /* ── SUBTÍTULO S4 — oculto hasta que termina el typewriter ── */
     #s4-sub {
       opacity: 0;
       transform: translateY(10px);
@@ -188,7 +196,6 @@
 
     #s4-sub.in { opacity: 1; transform: translateY(0); }
 
-    /* ── FRASE DEL NO ── */
     .no-phrase {
       min-height: 22px;
       color: var(--pink);
@@ -202,7 +209,6 @@
 
     .no-phrase.active { opacity: 1; transform: translateY(0); }
 
-    /* ── BOTONES ── */
     .btn {
       display: block;
       width: 100%;
@@ -232,7 +238,6 @@
       box-shadow: 0 6px 30px rgba(255,101,132,0.4);
     }
 
-    /* ── SÍ — fijo, siempre visible ── */
     .btn-yes {
       background: var(--pink);
       color: #120e1d;
@@ -240,28 +245,22 @@
       box-shadow: 0 4px 24px rgba(255,101,132,0.25);
       transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
       margin-bottom: 12px;
-      position: relative; /* nunca se mueve */
+      position: relative;
       z-index: 5;
     }
 
-    .btn-yes:hover {
-      background: var(--pink-dark);
-      transform: translateY(-2px);
-    }
+    .btn-yes:hover { background: var(--pink-dark); transform: translateY(-2px); }
 
-    /* ── NO — empieza estático, luego se vuelve absoluto respecto a .card ── */
     .btn-no {
       background: transparent;
       color: var(--muted);
       border: 1px solid var(--border);
       font-size: 14px;
       padding: 13px 20px;
-      /* La transición de posición se agrega dinámicamente vía JS para no interferir al inicio */
       transition: color 0.2s, border-color 0.2s, opacity 0.4s ease;
     }
 
     .btn-no.escaping {
-      /* Cuando ya es absoluto, añadir transición de movimiento suave con rebote */
       transition: left 0.22s cubic-bezier(0.34,1.45,0.64,1),
                   top  0.22s cubic-bezier(0.34,1.45,0.64,1),
                   opacity 0.4s ease,
@@ -271,18 +270,34 @@
 
     .btn-no:hover { color: var(--text); border-color: var(--pink); }
 
-    /* Contenedor que da espacio visible para que el No vuele */
     .btns-wrap {
-      /* Altura dinámica: el Sí ocupa ~52px + 12px gap + espacio para el No volando */
       position: relative;
       width: 100%;
-      /* Se expande con overflow visible para que el No pueda salir un poco */
       min-height: 130px;
+    }
+
+    /* ── VIDEO ── */
+    .yt-wrap {
+      width: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      aspect-ratio: 16/9;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+      background: #000;
+    }
+
+    .yt-wrap > div,
+    .yt-wrap iframe {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+      border: none;
     }
 
     /* ── FINAL SÍ ── */
     .heart { font-size: 54px; display: block; margin-bottom: 20px; animation: hb 1.3s ease-in-out infinite; }
-
     @keyframes hb { 0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
 
     .btn-wsp {
@@ -305,13 +320,8 @@
       cursor: pointer;
     }
 
-    .btn-wsp:hover {
-      background: #19bb53;
-      transform: translateY(-1.5px);
-      box-shadow: 0 6px 26px rgba(25,187,83,0.35);
-    }
+    .btn-wsp:hover { background: #19bb53; transform: translateY(-1.5px); }
 
-    /* ── CORAZONES FLOTANTES ── */
     .floating-hearts { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
 
     .fheart {
@@ -327,7 +337,6 @@
       100% { transform: translateY(-115vh) scale(0.55) rotate(15deg); opacity: 0; }
     }
 
-    /* ── CUENTA REGRESIVA ── */
     .sorry-emoji { font-size: 52px; display: block; margin-bottom: 16px; }
 
     .countdown-wrap {
@@ -355,7 +364,6 @@
       transition: transform 0.25s ease, opacity 0.25s ease;
     }
 
-    /* ── FUNDIDO A NEGRO ── */
     #blackout {
       position: fixed;
       inset: 0;
@@ -431,15 +439,17 @@
   </div>
 </div>
 
-<!-- S4: La pregunta -->
+<!-- S4: La pregunta + video -->
 <div class="screen" id="s4">
   <div class="card" id="s4-card">
     <div class="step-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div></div>
 
-    <!-- La pregunta con typewriter -->
-    <h1 class="big" id="typewriter-text" style="margin-bottom:18px; min-height: 3.5em"></h1>
+    <div class="yt-wrap reveal" style="transition-delay:0.05s">
+      <div id="yt-s4"></div>
+    </div>
 
-    <!-- Subtítulo: OCULTO hasta que termina el typewriter -->
+    <h1 class="big" id="typewriter-text" style="margin-bottom:18px; min-height:3.5em"></h1>
+
     <div id="s4-sub">
       <p class="sub" style="margin-bottom:6px">
         esa noche vi unos ojos y una sonrisa<br>
@@ -456,7 +466,7 @@
   </div>
 </div>
 
-<!-- S5: Sí -->
+<!-- S5: Sí + video continúa -->
 <div class="screen" id="s5">
   <div class="card">
     <div class="step-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div></div>
@@ -466,11 +476,16 @@
       Pero qué te parece si hablamos por WhatsApp<br>
       y quedamos en qué hacer.
     </p>
-    <p class="sub reveal" style="transition-delay:0.3s; margin-bottom:28px">
+    <p class="sub reveal" style="transition-delay:0.3s; margin-bottom:20px">
       Tengo un par de ideas interesantes 😉👀<br>
       De paso me contás qué te pareció esto jajaj 😆
     </p>
-    <a id="btn-wsp" href="#" target="_blank" class="btn-wsp reveal" style="transition-delay:0.42s">
+
+    <div class="yt-wrap reveal" style="transition-delay:0.38s">
+      <div id="yt-s5"></div>
+    </div>
+
+    <a id="btn-wsp" href="#" target="_blank" class="btn-wsp reveal" style="transition-delay:0.5s">
       <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Abrir WhatsApp
     </a>
@@ -501,10 +516,63 @@
   // ─── CONFIG ───────────────────────────────────────────────────
   const TELEFONO = "5493885701329";
   const MENSAJE  = "";
+  const VIDEO_ID = "rZOkqwM3d0w";
 
   document.getElementById('btn-wsp').href = TELEFONO
     ? `https://wa.me/${TELEFONO}?text=${encodeURIComponent(MENSAJE)}`
     : `https://api.whatsapp.com/send?text=${encodeURIComponent(MENSAJE)}`;
+
+  // ─── YOUTUBE API ──────────────────────────────────────────────
+  let playerS4  = null;
+  let playerS5  = null;
+  let ytReady   = false;
+
+  window.onYouTubeIframeAPIReady = function() {
+    ytReady = true;
+
+    playerS4 = new YT.Player('yt-s4', {
+      videoId: VIDEO_ID,
+      playerVars: {
+        autoplay: 0, mute: 1, loop: 1,
+        playlist: VIDEO_ID, rel: 0, modestbranding: 1, controls: 1,
+      },
+      events: {
+        onReady: function(e) {
+          // Si S4 ya está activa (caso raro), arrancar
+          if (document.getElementById('s4').classList.contains('active')) {
+            e.target.playVideo();
+          }
+        }
+      }
+    });
+
+    playerS5 = new YT.Player('yt-s5', {
+      videoId: VIDEO_ID,
+      playerVars: {
+        autoplay: 0, mute: 1, loop: 1,
+        playlist: VIDEO_ID, rel: 0, modestbranding: 1, controls: 1,
+      }
+    });
+  };
+
+  function playS4() {
+    if (playerS4 && typeof playerS4.playVideo === 'function') {
+      playerS4.seekTo(0);
+      playerS4.playVideo();
+    }
+  }
+
+  function continueS5() {
+    if (!playerS4 || !playerS5) return;
+    try {
+      const t = playerS4.getCurrentTime();
+      playerS4.pauseVideo();
+      playerS5.seekTo(t, true);
+      playerS5.playVideo();
+    } catch(e) {
+      if (playerS5) playerS5.playVideo();
+    }
+  }
 
   // ─── REVEALS ──────────────────────────────────────────────────
   function activateReveals(screenEl) {
@@ -525,8 +593,8 @@
       a.classList.remove('active', 'out');
       b.classList.add('active');
       activateReveals(b);
-      if (to === 4) startTypewriter();
-      if (to === 5) startFloatingHearts();
+      if (to === 4) { startTypewriter(); playS4(); }
+      if (to === 5) { startFloatingHearts(); continueS5(); }
       if (to === 6) startCountdown();
     }, 500);
   }
@@ -537,11 +605,8 @@
   const s4sub   = document.getElementById('s4-sub');
 
   function startTypewriter() {
-    // Asegurarse que el subtítulo esté oculto
     s4sub.classList.remove('in');
-
     twEl.innerHTML = '';
-    // Construir spans por línea para el salto de línea
     const fullText = twLines.join('\n');
     let i = 0;
 
@@ -558,19 +623,15 @@
           cursor.insertAdjacentText('beforebegin', ch);
         }
         i++;
-        // Ritmo: lento al arrancar, pausa dramática en el '?'
         const delay = i <= 3 ? 100 : ch === '?' ? 280 : ch === ',' ? 160 : 58;
         setTimeout(type, delay);
       } else {
-        // Parpadear un poco más y luego mostrar subtítulo
         setTimeout(() => {
           cursor.remove();
-          // Mostrar subtítulo con fade suave
           s4sub.classList.add('in');
         }, 500);
       }
     }
-
     setTimeout(type, 350);
   }
 
@@ -580,14 +641,14 @@
     "y si me das una oportunidad? 🥺",
     "Te prometo que la pasaremos super ✨",
     "¿Ni un cafecito? Prometo que no muerdo ☕",
-    "Prometiste enseñarme a bailar folclore🫣",
-    "Podemos ir al cine o a ir a caminar a algun cerro jajaj",
+    "Prometiste enseñarme a bailar folclore 🫣",
+    "Podemos ir al cine o a caminar a algún cerro jajaj",
     "Última oportunidad... 👀",
   ];
 
   let intentos   = 0;
   let finalizado = false;
-  let btnMoved   = false; // si ya fue convertido a absoluto
+  let btnMoved   = false;
 
   function escapar(e) {
     if (finalizado) return;
@@ -596,61 +657,42 @@
     const btn  = document.getElementById('btn-no');
     const card = document.getElementById('s4-card');
 
-    // ── Primera escapada: convertir de flujo normal a absoluto sobre la card ──
     if (!btnMoved) {
       btnMoved = true;
-
-      // Capturar posición actual relativa a la card ANTES de cambiar nada
       const cardRect = card.getBoundingClientRect();
       const btnRect  = btn.getBoundingClientRect();
-
-      const offsetLeft = btnRect.left - cardRect.left;
-      const offsetTop  = btnRect.top  - cardRect.top;
-
-      // Fijar tamaño para que no colapse al sacar del flujo
-      btn.style.width  = btnRect.width  + 'px';
-      btn.style.height = btnRect.height + 'px';
-
-      // Convertir a absoluto respecto a la card
+      btn.style.width    = btnRect.width  + 'px';
+      btn.style.height   = btnRect.height + 'px';
       btn.style.position = 'absolute';
-      btn.style.left     = offsetLeft + 'px';
-      btn.style.top      = offsetTop  + 'px';
+      btn.style.left     = (btnRect.left - cardRect.left) + 'px';
+      btn.style.top      = (btnRect.top  - cardRect.top)  + 'px';
       btn.style.zIndex   = '10';
       card.appendChild(btn);
-
-      // Reservar el espacio que ocupaba el botón en el flujo
       document.getElementById('btns-wrap').style.paddingBottom = (btnRect.height + 12) + 'px';
-
-      // Activar clase de transición DESPUÉS de posicionar (evita animación al inicio)
       requestAnimationFrame(() => btn.classList.add('escaping'));
     }
 
-    // ── Calcular zona de escape ──
     const cardW = card.clientWidth;
     const cardH = card.clientHeight;
     const btnW  = parseInt(btn.style.width);
     const btnH  = parseInt(btn.style.height);
 
-    // El Sí siempre está seguro arriba en el flujo; el No puede ir a cualquier parte
-    // EXCEPTO la zona del Sí (top 0..yesH, left 0..cardW)
     const yesBtn = document.getElementById('btn-yes');
     const yesBR  = yesBtn.getBoundingClientRect();
     const cardBR = card.getBoundingClientRect();
     const yesTop  = yesBR.top  - cardBR.top;
     const yesLeft = yesBR.left - cardBR.left;
-    const yesBot  = yesTop + yesBR.height + 14;  // zona prohibida
+    const yesBot  = yesTop + yesBR.height + 14;
 
     const margin = 10;
     const maxX   = cardW - btnW - margin;
     const maxY   = cardH - btnH - margin;
 
     let nx, ny, tries = 0;
-
     do {
       nx = margin + Math.floor(Math.random() * Math.max(1, maxX - margin));
       ny = margin + Math.floor(Math.random() * Math.max(1, maxY - margin));
       tries++;
-      // Rechazar si cae sobre el botón Sí
       const overlapX = nx < yesLeft + yesBR.width + 8 && nx + btnW > yesLeft - 8;
       const overlapY = ny < yesBot && ny + btnH > yesTop - 8;
       if (overlapX && overlapY) ny = yesBot + Math.floor(Math.random() * Math.max(1, maxY - yesBot));
@@ -659,7 +701,6 @@
     btn.style.left = Math.min(nx, maxX) + 'px';
     btn.style.top  = Math.min(ny, maxY) + 'px';
 
-    // Frase
     const phrase = document.getElementById('no-phrase');
     phrase.classList.remove('active');
     setTimeout(() => {
@@ -667,7 +708,6 @@
       phrase.classList.add('active');
     }, 70);
 
-    // Última vez
     if (intentos >= textos.length - 1) {
       finalizado = true;
       btn.style.pointerEvents = 'none';
@@ -677,7 +717,6 @@
       }, 1100);
       return;
     }
-
     intentos++;
   }
 
@@ -721,7 +760,6 @@
     let n = 10;
     const numEl = document.getElementById('countdown-num');
     numEl.textContent = n;
-
     const iv = setInterval(() => {
       n--;
       if (n <= 0) {
@@ -730,7 +768,6 @@
         setTimeout(fadeToBlack, 700);
         return;
       }
-      // Pulso: encoge y vuelve
       numEl.style.transition = 'none';
       numEl.style.transform  = 'scale(1.45)';
       numEl.style.opacity    = '0.4';
@@ -751,3 +788,4 @@
   }
 </script>
 </body>
+</html>
