@@ -278,15 +278,18 @@
 
     /* ── VIDEO ── */
     .yt-wrap {
-      width: 100%;
-      border-radius: 14px;
-      overflow: hidden;
-      margin-bottom: 20px;
-      aspect-ratio: 16/9;
-      border: 1px solid var(--border);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
-      background: #000;
-    }
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+
+  margin-top: 25px;      /* espacio sobre el video */
+  margin-bottom: 20px;
+
+  aspect-ratio: 16/9;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  background: #000;
+}
 
     .yt-wrap > div,
     .yt-wrap iframe {
@@ -545,9 +548,7 @@
   let playerS4  = null;
   let playerS5  = null;
   let ytReady   = false;
-  .yt-wrap {
-  margin-top: 20px;
-  }
+  
   window.onYouTubeIframeAPIReady = function() {
     ytReady = true;
 
